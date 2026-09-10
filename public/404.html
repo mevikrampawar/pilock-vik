@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PI Locks</title>
+    <script>
+      // GitHub Pages SPA fallback: rewrite any 404 path into a hash route
+      // so the React router can serve it from index.html.
+      ;(function () {
+        var base = '/PI_Locks/'
+        var path = window.location.pathname
+        if (path.startsWith(base)) path = path.slice(base.length)
+        if (path && !path.startsWith('index.html')) {
+          window.location.replace(base + '#/' + path.replace(/^\/+/, ''))
+        }
+      })()
+    </script>
+  </head>
+  <body style="background:#0b0e16"></body>
+</html>
