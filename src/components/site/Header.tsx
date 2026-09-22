@@ -19,32 +19,43 @@ const nav = [
 ]
 
 /*
-  Header — sticky, glassy app bar. Desktop: logo, nav, theme toggle, CTA.
+  Header — sticky, glassy app bar with an editorial nav: quiet text links,
+  a gold hairline under the active page, theme toggle and a gold CTA.
   Mobile: theme toggle + hamburger that opens a Sheet with full-width links.
 */
 export function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <NavLink to="/" aria-label="PI Locks — home" className="shrink-0 py-2">
           <Logo />
         </NavLink>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav className="hidden items-stretch self-stretch lg:flex" aria-label="Primary">
           {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  'rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
-                  isActive && 'bg-muted text-foreground'
+                  'relative flex items-center px-4 font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground',
+                  isActive && 'text-foreground'
                 )
               }
             >
-              {item.label}
+              {({ isActive }) => (
+                <>
+                  {item.label}
+                  {isActive && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-4 bottom-0 h-[2px] bg-gold-500"
+                    />
+                  )}
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -76,8 +87,8 @@ export function Header() {
                     onClick={() => setOpen(false)}
                     className={({ isActive }) =>
                       cn(
-                        'display text-2xl rounded-md px-3 py-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
-                        isActive && 'bg-muted text-foreground'
+                        'display text-3xl rounded-md px-3 py-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
+                        isActive && 'text-foreground'
                       )
                     }
                   >

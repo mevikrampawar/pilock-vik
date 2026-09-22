@@ -130,10 +130,10 @@ export function ContactPage() {
             {channels.map((channel) => (
               <div
                 key={channel.label}
-                className="flex items-start gap-4 rounded-2xl border border-border/70 bg-card p-6 transition-colors duration-300 hover:border-brass/30"
+                className="flex items-start gap-4 border border-border/60 bg-card p-6 transition-colors duration-300 hover:border-gold-500/40"
               >
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-brass/25 bg-brass-soft">
-                  <channel.icon className="size-4 text-brass" />
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-gold-500/25 bg-gold-500/10">
+                  <channel.icon className="size-4 text-gold-500" />
                 </span>
                 <div className="flex flex-col gap-1">
                   <span className="eyebrow">{channel.label}</span>
@@ -142,7 +142,7 @@ export function ContactPage() {
                       href={channel.href}
                       target={channel.href.startsWith('http') ? '_blank' : undefined}
                       rel="noreferrer"
-                      className="font-mono text-sm text-foreground transition-colors hover:text-brass"
+                      className="font-mono text-sm text-foreground transition-colors hover:text-gold-500"
                     >
                       {channel.value}
                     </a>

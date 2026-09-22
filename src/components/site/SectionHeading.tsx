@@ -10,6 +10,10 @@ type SectionHeadingProps = {
   className?: string
 }
 
+/*
+  SectionHeading — the editorial section intro: a gold rule + mono eyebrow,
+  a serif display title, and an optional lede. Quiet, with plenty of air.
+*/
 export function SectionHeading({
   eyebrow,
   title,
@@ -20,16 +24,16 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        'flex flex-col gap-4',
+        'flex flex-col gap-5',
         align === 'center' && 'items-center text-center',
         className
       )}
     >
       <p className="eyebrow flex items-center gap-3">
-        <span aria-hidden className="inline-block size-1.5 rounded-full bg-brass" />
+        <span aria-hidden className="inline-block h-px w-6 bg-gold-500" />
         {eyebrow}
       </p>
-      <h2 className="display max-w-2xl text-4xl sm:text-5xl lg:text-6xl text-balance">
+      <h2 className="display max-w-2xl text-4xl sm:text-5xl lg:text-6xl">
         {title}
       </h2>
       {lede && (

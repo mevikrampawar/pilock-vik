@@ -37,10 +37,10 @@ export function KeywayEmblem({
       aria-label="PI Locks keyway emblem"
     >
       <defs>
-        {/* Brushed-metal face gradient for the cylinder plate. */}
+        {/* Brushed-navy face gradient for the cylinder plate (Midnight & Brass). */}
         <radialGradient id="pi-face" cx="50%" cy="42%" r="70%">
-          <stop offset="0%" stopColor="oklch(0.24 0.022 250)" />
-          <stop offset="100%" stopColor="oklch(0.15 0.025 250)" />
+          <stop offset="0%" stopColor="oklch(0.22 0.05 256)" />
+          <stop offset="100%" stopColor="oklch(0.13 0.04 255)" />
         </radialGradient>
       </defs>
 

@@ -94,6 +94,22 @@ export const serviceGroups: ServiceGroup[] = [
           'Mortise and integrated electric strikes for retrofit and new build',
         ],
       },
+      {
+        slug: 'automatic-door-operators',
+        name: 'Automatic Door Operators',
+        shortName: 'Door Operators',
+        tagline:
+          'Automatic sliding, swing, and revolving door systems — installed and integrated with the access layer.',
+        intro:
+          'Movement through a building should not cost a second thought. We supply and install automatic sliding, swing, and revolving door systems, coordinated with access control and intercoms so entry is seamless and secure at once — for staff, visitors, and deliveries alike.',
+        partners: [],
+        integrations: [
+          'Swing and sliding operators for retail, healthcare, and institutional entries',
+          'Release coordinated with access control and intercom systems',
+          'Sensor safety and activation matched to applicable standards',
+          'Openers and egress hardware specified in the same scope',
+        ],
+      },
     ],
   },
   {

@@ -1,9 +1,10 @@
 /*
-  PI Locks — global stylesheet.
-  Design system: deep "ink" + brass (dark) versus warm "paper" + deep brass
-  (light). Every surface uses semantic tokens so the theme flips cleanly.
-  Custom vars (--color-ink/steel/brass/..., --em-*, --grid, --glow) are
-  redefined per theme so the same class names work in both modes.
+  PI Locks — global stylesheet (playground rework).
+  Brand identity: "Midnight & Brass" — deep navy #011c3a surfaces, a single
+  gold accent #efa905, editorial serif display type (Fraunces), warm ivory
+  paper in light mode. Dark (midnight navy) is the signature identity.
+
+  Every surface uses semantic tokens so both themes flip cleanly.
 */
 
 @import "tailwindcss";
@@ -14,18 +15,22 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', 'Georgia', ui-serif, serif;
   --font-heading: var(--font-display);
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 
-  /* Brand tokens — redefined per theme below. */
-  --color-ink: var(--ink);
-  --color-steel: var(--steel);
-  --color-steel-2: var(--steel-2);
-  --color-brass: var(--brass);
-  --color-brass-soft: var(--brass-soft);
-  --color-paper: var(--paper);
+  /* Brand palette — redefined per theme below. */
+  --color-navy-950: var(--navy-950);
+  --color-navy-900: var(--navy-900);
+  --color-navy-800: var(--navy-800);
+  --color-navy-700: var(--navy-700);
+  --color-navy-600: var(--navy-600);
+  --color-gold-400: var(--gold-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-600: var(--gold-600);
+  --color-ivory-50: var(--ivory-50);
+  --color-ivory-100: var(--ivory-100);
 
   /* Map every shadcn semantic token to a CSS variable. */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -69,106 +74,115 @@
 }
 
 /* ---------------------------------------------------------------------------
-   LIGHT THEME (default) — warm paper, deep brass.
+   LIGHT THEME (default) — warm ivory paper, deep navy ink, gold accent.
+   Quiet editorial calm, in the mode of the reference site.
 --------------------------------------------------------------------------- */
 :root {
-  --background: oklch(0.972 0.005 90);
-  --foreground: oklch(0.22 0.02 250);
-  --card: oklch(0.995 0.002 90);
-  --card-foreground: oklch(0.22 0.02 250);
-  --popover: oklch(0.995 0.002 90);
-  --popover-foreground: oklch(0.22 0.02 250);
-  --primary: oklch(0.53 0.11 85);
-  --primary-foreground: oklch(0.98 0.003 90);
-  --secondary: oklch(0.93 0.005 90);
-  --secondary-foreground: oklch(0.22 0.02 250);
-  --muted: oklch(0.93 0.005 90);
-  --muted-foreground: oklch(0.46 0.015 250);
-  --accent: oklch(0.93 0.005 90);
-  --accent-foreground: oklch(0.45 0.09 85);
+  --background: oklch(0.965 0.008 92);
+  --foreground: oklch(0.23 0.03 255);
+  --card: oklch(0.99 0.006 92);
+  --card-foreground: oklch(0.23 0.03 255);
+  --popover: oklch(0.99 0.006 92);
+  --popover-foreground: oklch(0.23 0.03 255);
+  --primary: oklch(0.17 0.04 257);
+  --primary-foreground: oklch(0.97 0.008 92);
+  --secondary: oklch(0.925 0.01 92);
+  --secondary-foreground: oklch(0.23 0.03 255);
+  --muted: oklch(0.925 0.01 92);
+  --muted-foreground: oklch(0.45 0.025 257);
+  --accent: oklch(0.925 0.01 92);
+  --accent-foreground: oklch(0.55 0.11 78);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.87 0.006 90);
-  --input: oklch(0.84 0.008 90);
-  --ring: oklch(0.53 0.11 85);
-  --chart-1: oklch(0.53 0.11 85);
-  --chart-2: oklch(0.5 0.06 250);
-  --chart-3: oklch(0.58 0.11 60);
-  --chart-4: oklch(0.52 0.08 150);
-  --chart-5: oklch(0.5 0.08 320);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.995 0.002 90);
-  --sidebar-foreground: oklch(0.22 0.02 250);
-  --sidebar-primary: oklch(0.53 0.11 85);
-  --sidebar-primary-foreground: oklch(0.98 0.003 90);
-  --sidebar-accent: oklch(0.93 0.005 90);
-  --sidebar-accent-foreground: oklch(0.22 0.02 250);
-  --sidebar-border: oklch(0.87 0.006 90);
-  --sidebar-ring: oklch(0.53 0.11 85);
+  --border: oklch(0.28 0.03 255 / 14%);
+  --input: oklch(0.28 0.03 255 / 18%);
+  --ring: oklch(0.72 0.13 76);
+  --chart-1: oklch(0.24 0.04 255);
+  --chart-2: oklch(0.72 0.13 76);
+  --chart-3: oklch(0.5 0.06 250);
+  --chart-4: oklch(0.43 0.09 30);
+  --chart-5: oklch(0.45 0.08 320);
+  --radius: 0.25rem;
+  --sidebar: oklch(0.99 0.006 92);
+  --sidebar-foreground: oklch(0.23 0.03 255);
+  --sidebar-primary: oklch(0.17 0.04 257);
+  --sidebar-primary-foreground: oklch(0.97 0.008 92);
+  --sidebar-accent: oklch(0.925 0.01 92);
+  --sidebar-accent-foreground: oklch(0.23 0.03 255);
+  --sidebar-border: oklch(0.28 0.03 255 / 14%);
+  --sidebar-ring: oklch(0.72 0.13 76);
 
   /* Brand tokens, light-mode values. */
-  --ink: oklch(0.945 0.006 90);
-  --steel: oklch(0.925 0.005 90);
-  --steel-2: oklch(0.898 0.005 90);
-  --brass: oklch(0.55 0.11 85);
-  --brass-soft: oklch(0.55 0.11 85 / 11%);
-  --paper: oklch(1 0 0);
+  --navy-950: oklch(0.14 0.03 256);
+  --navy-900: oklch(0.17 0.04 257);
+  --navy-800: oklch(0.21 0.045 256);
+  --navy-700: oklch(0.27 0.055 256);
+  --navy-600: oklch(0.35 0.065 256);
+  --gold-400: oklch(0.83 0.155 82);
+  --gold-500: oklch(0.74 0.15 78);
+  --gold-600: oklch(0.62 0.13 75);
+  --ivory-50: oklch(0.985 0.005 92);
+  --ivory-100: oklch(0.965 0.008 92);
 
-  /* Emblem page-guide strokes + decorative atmosphere, light-mode values. */
-  --em-tick: oklch(0.24 0.02 250 / 27%);
-  --em-ring: oklch(0.24 0.02 250 / 10%);
-  --grid: oklch(0.24 0.02 250 / 5%);
-  --glow: oklch(0.55 0.11 85 / 11%);
+  /* Decorative atmosphere, light-mode values. */
+  --em-tick: oklch(0.23 0.03 255 / 38%);
+  --em-ring: oklch(0.23 0.03 255 / 12%);
+  --grid: oklch(0.23 0.03 255 / 6%);
+  --glow: oklch(0.74 0.15 78 / 16%);
 
   color-scheme: light;
 }
 
 /* ---------------------------------------------------------------------------
-   DARK THEME — deep blue-ink, luminous brass.
+   DARK THEME — Midnight & Brass: the client's deep navy #011c3a + #efa905.
 --------------------------------------------------------------------------- */
 .dark {
-  --background: oklch(0.145 0.025 250);
-  --foreground: oklch(0.955 0.005 250);
-  --card: oklch(0.20 0.022 250);
-  --card-foreground: oklch(0.955 0.005 250);
-  --popover: oklch(0.20 0.022 250);
-  --popover-foreground: oklch(0.955 0.005 250);
-  --primary: oklch(0.80 0.13 92);
-  --primary-foreground: oklch(0.18 0.02 250);
-  --secondary: oklch(0.24 0.022 250);
-  --secondary-foreground: oklch(0.955 0.005 250);
-  --muted: oklch(0.24 0.022 250);
-  --muted-foreground: oklch(0.70 0.018 250);
-  --accent: oklch(0.24 0.022 250);
-  --accent-foreground: oklch(0.90 0.09 92);
+  --background: oklch(0.128 0.04 255);
+  --foreground: oklch(0.945 0.012 92);
+  --card: oklch(0.17 0.04 255);
+  --card-foreground: oklch(0.945 0.012 92);
+  --popover: oklch(0.17 0.04 255);
+  --popover-foreground: oklch(0.945 0.012 92);
+  --primary: oklch(0.82 0.155 82);
+  --primary-foreground: oklch(0.13 0.04 255);
+  --secondary: oklch(0.205 0.04 255);
+  --secondary-foreground: oklch(0.945 0.012 92);
+  --muted: oklch(0.205 0.04 255);
+  --muted-foreground: oklch(0.68 0.028 255);
+  --accent: oklch(0.205 0.04 255);
+  --accent-foreground: oklch(0.88 0.13 82);
   --destructive: oklch(0.70 0.19 22);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.80 0.13 92);
-  --chart-1: oklch(0.80 0.13 92);
-  --chart-2: oklch(0.55 0.08 250);
-  --chart-3: oklch(0.60 0.12 60);
-  --chart-4: oklch(0.65 0.06 150);
-  --chart-5: oklch(0.45 0.06 320);
-  --sidebar: oklch(0.20 0.022 250);
-  --sidebar-foreground: oklch(0.955 0.005 250);
-  --sidebar-primary: oklch(0.80 0.13 92);
-  --sidebar-primary-foreground: oklch(0.18 0.02 250);
-  --sidebar-accent: oklch(0.24 0.022 250);
-  --sidebar-accent-foreground: oklch(0.955 0.005 250);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.80 0.13 92);
+  --border: oklch(0.88 0.02 92 / 12%);
+  --input: oklch(0.88 0.02 92 / 16%);
+  --ring: oklch(0.82 0.155 82);
+  --chart-1: oklch(0.82 0.155 82);
+  --chart-2: oklch(0.62 0.13 255);
+  --chart-3: oklch(0.74 0.15 78);
+  --chart-4: oklch(0.55 0.08 160);
+  --chart-5: oklch(0.55 0.09 320);
+  --sidebar: oklch(0.17 0.04 255);
+  --sidebar-foreground: oklch(0.945 0.012 92);
+  --sidebar-primary: oklch(0.82 0.155 82);
+  --sidebar-primary-foreground: oklch(0.13 0.04 255);
+  --sidebar-accent: oklch(0.205 0.04 255);
+  --sidebar-accent-foreground: oklch(0.945 0.012 92);
+  --sidebar-border: oklch(0.88 0.02 92 / 12%);
+  --sidebar-ring: oklch(0.82 0.155 82);
 
-  --ink: oklch(0.145 0.025 250);
-  --steel: oklch(0.20 0.022 250);
-  --steel-2: oklch(0.24 0.022 250);
-  --brass: oklch(0.80 0.13 92);
-  --brass-soft: oklch(0.80 0.13 92 / 10%);
-  --paper: oklch(0.955 0.005 250);
+  --navy-950: oklch(0.09 0.03 256);
+  --navy-900: oklch(0.128 0.04 255);
+  --navy-800: oklch(0.17 0.04 255);
+  --navy-700: oklch(0.205 0.04 255);
+  --navy-600: oklch(0.27 0.05 257);
+  --gold-400: oklch(0.88 0.155 82);
+  --gold-500: oklch(0.82 0.155 82);
+  --gold-600: oklch(0.70 0.15 80);
+  --ivory-50: oklch(0.955 0.012 92);
+  --ivory-100: oklch(0.945 0.012 92);
 
-  --em-tick: oklch(1 0 0 / 27%);
-  --em-ring: oklch(1 0 0 / 9%);
-  --grid: oklch(1 0 0 / 3%);
-  --glow: oklch(0.80 0.13 92 / 15%);
+  --em-tick: oklch(0.95 0.01 92 / 34%);
+  --em-ring: oklch(0.95 0.01 92 / 10%);
+  --grid: oklch(0.95 0.01 92 / 4%);
+  --glow: oklch(0.82 0.155 82 / 14%);
 
   color-scheme: dark;
 }
@@ -184,7 +198,7 @@
     @apply bg-background text-foreground font-sans;
   }
   ::selection {
-    @apply bg-primary text-primary-foreground;
+    @apply bg-gold-500 text-navy-950;
   }
 
   /* Silky theme toggle — every surface color interpolates on switch. */
@@ -201,29 +215,34 @@
 }
 
 @layer components {
-  /* Mono uppercase label — the recurring "spec sheet" eyebrow. */
+  /* Mono uppercase eyebrow — the "spec sheet" label. */
   .eyebrow {
-    @apply font-mono text-[11px] font-medium tracking-[0.28em] uppercase text-brass;
+    @apply font-mono text-[11px] font-medium tracking-[0.28em] uppercase text-gold-500;
   }
 
-  /* Display headline — Barlow Condensed, tight, engineered. */
+  /* Display headline — Fraunces, editorial, optical sizing. */
   .display {
-    @apply font-display font-semibold tracking-tight uppercase leading-[0.95];
+    @apply font-display tracking-[-0.015em] leading-[1.02] font-medium text-balance;
+  }
+
+  /* Serif italic accent word inside a display line. */
+  .display-accent {
+    @apply font-display font-light italic text-gold-500;
   }
 }
 
-/* Blueprint grid — subtle technical-drawing backdrop (color flips per theme). */
-.bg-blueprint {
-  background-color: var(--ink);
+/* Brand navy surface with a faint blueprint grid (flips per theme). */
+.bg-brand {
+  background-color: var(--background);
   background-image:
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 56px 56px;
+  background-size: 64px 64px;
 }
 
-/* Fine radial brass glow behind focal elements. */
+/* Fine gold radial atmosphere behind focal elements. */
 .glow-brass {
-  background: radial-gradient(closest-side, var(--glow), transparent 70%);
+  background: radial-gradient(closest-side, var(--glow), transparent 72%);
 }
 
 /* Honor reduced-motion preferences across every animation. */
@@ -275,7 +294,7 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .marquee-track {
-    animation: marquee 44s linear infinite;
+    animation: marquee 48s linear infinite;
   }
   .marquee:hover .marquee-track {
     animation-play-state: paused;

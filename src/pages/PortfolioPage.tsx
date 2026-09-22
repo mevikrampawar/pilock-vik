@@ -18,7 +18,11 @@ export function PortfolioPage() {
     <>
       <PageHeader
         eyebrow="Portfolio"
-        title="Selected work & capabilities"
+        title={
+          <>
+            Selected work &amp; <span className="display-accent">capabilities.</span>
+          </>
+        }
         lede="We publish case studies as installations complete — never invented. Until then, here is exactly what we build in each sector."
       />
 
@@ -36,7 +40,7 @@ export function PortfolioPage() {
             <TabsContent key={sector.key} value={sector.key} className="mt-0 flex flex-col gap-10">
               <Reveal className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start">
                 {/* What we build per vertical. */}
-                <div className="flex flex-col gap-5 rounded-2xl border border-border/70 bg-card p-8 sm:p-10">
+                <div className="flex flex-col gap-5 border border-border/60 bg-card p-8 sm:p-10">
                   <p className="eyebrow">Sector 0{i + 1}</p>
                   <h2 className="display text-4xl sm:text-5xl">{sector.name}</h2>
                   <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
@@ -46,7 +50,7 @@ export function PortfolioPage() {
                     {sector.systems.map((system) => (
                       <span
                         key={system}
-                        className="rounded-full border border-border/70 bg-background px-3 py-1.5 font-mono text-[11px] tracking-wide uppercase text-muted-foreground"
+                        className="rounded-full border border-border/60 px-3 py-1.5 font-mono text-[11px] tracking-wide uppercase text-muted-foreground"
                       >
                         {system}
                       </span>
@@ -57,11 +61,11 @@ export function PortfolioPage() {
                 {/* Typical scope, expandable. */}
                 <div className="flex flex-col gap-5">
                   <h3 className="eyebrow flex items-center gap-3">
-                    <span aria-hidden className="inline-block size-1.5 rounded-full bg-brass" />
+                    <span aria-hidden className="inline-block h-px w-6 bg-gold-500" />
                     Typical scope
                   </h3>
                   <Reveal delay={100}>
-                    <Accordion type="single" collapsible className="w-full rounded-2xl border border-border/70 bg-card px-6">
+                    <Accordion type="single" collapsible className="w-full border border-border/60 bg-card px-6">
                       {(provenPackages[sector.key]?.systems ?? sector.systems).map(
                         (system) => (
                           <AccordionItem key={system} value={system}>
@@ -86,12 +90,12 @@ export function PortfolioPage() {
       </section>
 
       {/* First-projects frame — honest empty state until case studies exist. */}
-      <section className="border-t border-border/60 bg-steel/30 py-16 sm:py-20" aria-label="Upcoming case studies">
+      <section className="border-y border-border/60 bg-secondary/40 py-16 sm:py-20" aria-label="Upcoming case studies">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="flex flex-col items-start gap-5 rounded-2xl border border-dashed border-border bg-card p-8 sm:p-12">
+          <Reveal className="flex flex-col items-start gap-5 border border-dashed border-border bg-card p-8 sm:p-12">
             <p className="eyebrow">Case studies</p>
             <h2 className="display text-3xl sm:text-4xl">
-              The first projects will land here
+              The first projects will <span className="display-accent">land here.</span>
             </h2>
             <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
               As installations complete and clients grant permission, the

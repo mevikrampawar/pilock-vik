@@ -5,9 +5,9 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // GitHub Pages hosts this repo under /PI_Locks/, so asset paths must
-  // be absolute-relative to that base at runtime.
-  base: '/PI_Locks/',
+  // GitHub Pages hosts this repo under /pilock-vik/, so asset paths must
+  // be absolute-relative to that base at runtime. (Prod repo stays /PI_Locks/.)
+  base: '/pilock-vik/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

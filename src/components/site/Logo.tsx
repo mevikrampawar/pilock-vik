@@ -13,7 +13,7 @@ export function Logo({ className, markClassName }: LogoProps) {
       <KeywayEmblem className={cn('size-9 shrink-0', markClassName)} />
       <span className="flex flex-col leading-none">
         <span className="display text-xl whitespace-nowrap">
-          PI <span className="text-brass">LOCKS</span>
+          PI <span className="display-accent">Locks</span>
         </span>
         <span className="mt-1.5 font-mono text-[9px] tracking-[0.24em] text-muted-foreground uppercase whitespace-nowrap">
           Access · Security · Comms

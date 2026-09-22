@@ -6,9 +6,10 @@
     <title>PI Locks</title>
     <script>
       // GitHub Pages SPA fallback: rewrite any 404 path into a hash route
-      // so the React router can serve it from index.html.
+      // so the React router can serve it from index.html. (Playground base is
+      // /pilock-vik/; prod /PI_Locks/ unchanged.)
       ;(function () {
-        var base = '/PI_Locks/'
+        var base = '/pilock-vik/'
         var path = window.location.pathname
         if (path.startsWith(base)) path = path.slice(base.length)
         if (path && !path.startsWith('index.html')) {
@@ -17,5 +18,5 @@
       })()
     </script>
   </head>
-  <body style="background:#0b0e16"></body>
+  <body style="background:#011c3a"></body>
 </html>

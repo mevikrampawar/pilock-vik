@@ -9,28 +9,30 @@ export function JourneySection() {
         <Reveal>
           <SectionHeading
             eyebrow="How it works"
-            title="The journey of a project"
+            title={
+              <>
+                The journey of a <span className="display-accent">project.</span>
+              </>
+            }
             lede="Five steps, set up front so you always know what comes next — and what has been done. This is how a premium installation is actually run."
           />
         </Reveal>
 
-        <ol className="mt-14 grid gap-6 lg:grid-cols-5 lg:gap-0">
+        <ol className="mt-16 flex flex-col">
           {journey.map((step, i) => (
             <Reveal
               as="li"
               key={step.step}
-              delay={i * 90}
-              className="group relative flex flex-col gap-4 lg:px-5 lg:first:pl-0 lg:last:pr-0"
+              delay={i * 70}
+              className={
+                i > 0
+                  ? 'flex flex-col gap-4 border-t border-border/60 py-8 lg:grid lg:grid-cols-[0.3fr_0.7fr_1.6fr] lg:items-baseline lg:gap-8'
+                  : 'flex flex-col gap-4 py-8 lg:grid lg:grid-cols-[0.3fr_0.7fr_1.6fr] lg:items-baseline lg:gap-8'
+              }
             >
-              {i < journey.length - 1 && (
-                <span
-                  aria-hidden
-                  className="absolute right-0 top-6 hidden h-px w-full bg-gradient-to-r from-border via-border to-transparent lg:block"
-                />
-              )}
-              <span className="eyebrow font-semibold">{step.step}</span>
-              <h3 className="display text-2xl">{step.title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
+              <span className="display text-4xl text-gold-500/80">{step.step}</span>
+              <h3 className="display text-2xl sm:text-3xl">{step.title}</h3>
+              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
                 {step.body}
               </p>
             </Reveal>

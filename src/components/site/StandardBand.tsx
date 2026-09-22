@@ -1,68 +1,61 @@
-import {
-  FileCheck,
-  Headset,
-  Layers,
-  Ruler,
-  Scale,
-  ShieldCheck,
-  type LucideIcon,
-} from 'lucide-react'
-
 import { standard } from '@/data/content'
 import { Reveal } from '@/components/site/Reveal'
-import { SectionHeading } from '@/components/site/SectionHeading'
 
-const icons: Record<string, LucideIcon> = {
-  'shield-check': ShieldCheck,
-  'file-check': FileCheck,
-  layers: Layers,
-  headset: Headset,
-  scale: Scale,
-  ruler: Ruler,
-}
-
+/*
+  StandardBand — the anchor of the brand's proof, on the navy surface.
+  A serif pull-quote for the "no invented numbers" argument, then the six
+  commitments as ruled rows with gold P.I. indices. Editorial, auditable.
+*/
 export function StandardBand() {
   return (
     <section
-      className="bg-blueprint relative overflow-hidden border-y border-border/60 bg-ink py-20 sm:py-28"
+      className="bg-brand relative overflow-hidden border-y border-border/60 py-20 sm:py-28"
       aria-label="The PI Standard"
     >
-      <div className="glow-brass pointer-events-none absolute inset-x-0 top-0 h-72" />
+      <div className="glow-brass pointer-events-none absolute inset-x-0 top-0 h-80" />
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Our Standard"
-            title={
-              <>
-                No statistics. A <span className="text-brass">standard.</span>
-              </>
-            }
-            lede="New companies don’t need invented numbers — they need proof you can audit. These six commitments are the PI Standard on every single project, from first consultation to lifetime support."
-          />
-        </Reveal>
+        <Reveal className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20">
+          <div className="flex flex-col gap-6">
+            <p className="eyebrow flex items-center gap-3">
+              <span aria-hidden className="inline-block h-px w-6 bg-gold-500" />
+              The PI Standard
+            </p>
+            <h2 className="display max-w-md text-4xl sm:text-5xl">
+              No statistics. A <span className="display-accent">standard.</span>
+            </h2>
+            <p className="max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
+              New companies don&rsquo;t need invented numbers — they need proof
+              you can audit. These six commitments hold on every project, from
+              first consultation to lifetime support.
+            </p>
+          </div>
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-border/60 bg-border/60 sm:grid-cols-2 lg:grid-cols-3">
-          {standard.map((item, i) => {
-            const Icon = icons[item.icon]
-            return (
+          <ul className="flex flex-col">
+            {standard.map((item, i) => (
               <Reveal
                 key={item.title}
-                delay={(i % 3) * 90}
-                className="flex flex-col gap-4 bg-card p-7 transition-colors duration-300 hover:bg-steel-2"
+                as="li"
+                className={
+                  i > 0
+                    ? 'flex flex-col gap-2 border-t border-border/50 py-6 sm:flex-row sm:items-baseline sm:gap-8'
+                    : 'flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8'
+                }
               >
-                <span className="flex size-11 items-center justify-center rounded-lg border border-brass/25 bg-brass-soft">
-                  <Icon className="size-5 text-brass" />
+                <span className="eyebrow w-16 shrink-0">
+                  P.I. {String(i + 1).padStart(2, '0')}
                 </span>
-                <div className="flex flex-col gap-2">
-                  <h3 className="display text-xl sm:text-2xl">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                <div className="flex flex-col gap-1.5 sm:flex-row sm:gap-8">
+                  <h3 className="display text-xl sm:w-64 sm:shrink-0">
+                    {item.title}
+                  </h3>
+                  <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
                     {item.body}
                   </p>
                 </div>
               </Reveal>
-            )
-          })}
-        </div>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   )

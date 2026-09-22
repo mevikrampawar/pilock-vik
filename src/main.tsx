@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
 
+import '@fontsource-variable/geist'
 import './index.css'
 import App from './App.tsx'
 

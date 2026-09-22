@@ -16,5 +16,5 @@ export const site = {
     primary: 'Start Your Project',
     secondary: 'Explore Services',
   },
-  siteUrl: 'https://mevikrampawar.github.io/PI_Locks',
+  siteUrl: 'https://mevikrampawar.github.io/pilock-vik',
 } as const
