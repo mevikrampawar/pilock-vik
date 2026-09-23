@@ -249,7 +249,7 @@
   /* Display headline — Fraunces, editorial, optical sizing. */
   .display {
     @apply font-display tracking-[-0.015em] leading-[1.02] font-medium text-balance;
-    text-shadow: 0 4px 24px rgb(0 0 0 / 0.15);
+    text-shadow: 0 4px 32px rgb(0 0 0 / 0.5);
   }
 
   /* Serif italic accent word inside a display line. */

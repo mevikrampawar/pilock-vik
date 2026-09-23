@@ -36,6 +36,9 @@ function Hero() {
         aspect="auto"
         eager
       />
+      {/* Heavy contrast gradient specifically for the hero to ensure text legibility */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-navy-950/95 via-navy-950/40 to-transparent pointer-events-none" aria-hidden />
+      
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-20 sm:pb-32 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h1 className="display hero-veil text-[2.75rem] text-ivory-50 text-balance leading-[1.05] sm:text-6xl lg:text-[5.5rem] [animation-delay:120ms]">
