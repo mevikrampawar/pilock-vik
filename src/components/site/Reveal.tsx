@@ -15,7 +15,7 @@ export function Reveal({
   delay = 0,
   as = 'div',
 }: RevealProps) {
-  const MotionTag = motion.create(as as any)
+  const MotionTag = motion[as as keyof typeof motion] as any
 
   return (
     <MotionTag

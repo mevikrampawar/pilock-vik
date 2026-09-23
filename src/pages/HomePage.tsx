@@ -44,13 +44,13 @@ function Hero() {
         aspect="auto"
         eager
       >
-        <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-32 sm:pt-40 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="spec hero-veil flex items-center gap-3 text-gold-400">
               <span aria-hidden className="inline-block h-px w-8 bg-gold-400" />
               {site.category}
             </p>
-            <h1 className="display hero-veil mt-6 text-5xl text-ivory-50 text-balance leading-[1.05] sm:text-7xl lg:text-[5.5rem] [animation-delay:120ms]">
+            <h1 className="display hero-veil mt-6 text-[2.75rem] text-ivory-50 text-balance leading-[1.05] sm:text-6xl lg:text-[5.5rem] [animation-delay:120ms]">
               The standard behind every{' '}
               <span className="display-accent text-gold-400">secure door.</span>
             </h1>
