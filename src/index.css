@@ -4,7 +4,10 @@
   gold accent #efa905, editorial serif display type (Fraunces), warm ivory
   paper in light mode. Dark (midnight navy) is the signature identity.
 
-  Every surface uses semantic tokens so both themes flip cleanly.
+  This pass turns the site from a "spec-sheet" interface into a cinematic,
+  photography-led system: full-bleed media bands, a duotone navy wash over
+  every photograph, film-grain texture, and quiet editorial labels instead
+  of techy mono eyebrows. Markup-driven; classes below are the primitives.
 */
 
 @import "tailwindcss";
@@ -112,22 +115,30 @@
   --sidebar-ring: oklch(0.72 0.13 76);
 
   /* Brand tokens, light-mode values. */
-  --navy-950: oklch(0.14 0.03 256);
+  --navy-950: oklch(0.14 0.04 256);
   --navy-900: oklch(0.17 0.04 257);
   --navy-800: oklch(0.21 0.045 256);
   --navy-700: oklch(0.27 0.055 256);
   --navy-600: oklch(0.35 0.065 256);
   --gold-400: oklch(0.83 0.155 82);
   --gold-500: oklch(0.74 0.15 78);
-  --gold-600: oklch(0.62 0.13 75);
+  --gold-600: oklch(0.56 0.12 72);
+  --gold-ink: oklch(0.46 0.1 70);
   --ivory-50: oklch(0.985 0.005 92);
   --ivory-100: oklch(0.965 0.008 92);
+
+  /* Metal for the keyway emblem. */
+  --brass: oklch(0.74 0.15 78);
+  --brass-soft: oklch(0.65 0.13 75 / 38%);
+  --ink: oklch(0.12 0.03 255);
 
   /* Decorative atmosphere, light-mode values. */
   --em-tick: oklch(0.23 0.03 255 / 38%);
   --em-ring: oklch(0.23 0.03 255 / 12%);
   --grid: oklch(0.23 0.03 255 / 6%);
   --glow: oklch(0.74 0.15 78 / 16%);
+  --wash-top: oklch(0.14 0.04 256 / 52%);
+  --wash-bottom: oklch(0.14 0.04 256 / 84%);
 
   color-scheme: light;
 }
@@ -176,13 +187,20 @@
   --gold-400: oklch(0.88 0.155 82);
   --gold-500: oklch(0.82 0.155 82);
   --gold-600: oklch(0.70 0.15 80);
+  --gold-ink: oklch(0.88 0.145 82);
   --ivory-50: oklch(0.955 0.012 92);
   --ivory-100: oklch(0.945 0.012 92);
+
+  --brass: oklch(0.82 0.155 82);
+  --brass-soft: oklch(0.7 0.13 80 / 42%);
+  --ink: oklch(0.09 0.04 255);
 
   --em-tick: oklch(0.95 0.01 92 / 34%);
   --em-ring: oklch(0.95 0.01 92 / 10%);
   --grid: oklch(0.95 0.01 92 / 4%);
   --glow: oklch(0.82 0.155 82 / 14%);
+  --wash-top: oklch(0.09 0.03 256 / 55%);
+  --wash-bottom: oklch(0.09 0.03 256 / 88%);
 
   color-scheme: dark;
 }
@@ -215,9 +233,17 @@
 }
 
 @layer components {
-  /* Mono uppercase eyebrow — the "spec sheet" label. */
+  /* Editorial kicker — a quiet serif italic gold line. The "spec sheet"
+     mono eyebrow is retired; mono survives only as tiny `.spec` captions. */
   .eyebrow {
-    @apply font-mono text-[11px] font-medium tracking-[0.28em] uppercase text-gold-500;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 380;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+    text-transform: none;
+    color: var(--gold-ink);
   }
 
   /* Display headline — Fraunces, editorial, optical sizing. */
@@ -229,6 +255,192 @@
   .display-accent {
     @apply font-display font-light italic text-gold-500;
   }
+
+  /* Tiny mono caption — reserves, credits, honest notes. Used sparingly. */
+  .spec {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  /* Underlined ghost CTA — a serif italic line with a gold arrow. */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--gold-ink);
+    border-bottom: 1px solid color-mix(in oklch, var(--gold-ink) 45%, transparent);
+    padding-bottom: 0.1rem;
+    transition:
+      color 0.25s ease-out,
+      border-color 0.25s ease-out,
+      gap 0.25s ease-out;
+  }
+  .link-arrow:hover {
+    color: var(--foreground);
+    border-color: var(--foreground);
+    gap: 0.75rem;
+  }
+  .link-arrow svg {
+    transition: transform 0.25s ease-out;
+  }
+  .link-arrow:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Buttons — strip the component chrome. Sharp corners, flat colour,
+   gold on navy. The interface stops looking like a UI kit.
+--------------------------------------------------------------------------- */
+[data-slot="button"] {
+  border-radius: 2px !important;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+}
+[data-slot="button"][data-variant="default"],
+[data-slot="button"][data-variant="destructive"] {
+  background-color: var(--gold-500);
+  color: var(--navy-950);
+  border-color: transparent;
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.12);
+}
+[data-slot="button"][data-variant="default"]:hover,
+[data-slot="button"][data-variant="destructive"]:hover {
+  background-color: var(--gold-600);
+}
+[data-slot="button"][data-variant="outline"] {
+  background-color: transparent;
+  border-color: color-mix(in oklch, var(--foreground) 32%, transparent);
+  color: var(--foreground);
+}
+[data-slot="button"][data-variant="outline"]:hover {
+  background-color: color-mix(in oklch, var(--foreground) 8%, transparent);
+  color: var(--foreground);
+}
+
+/* ---------------------------------------------------------------------------
+   Photography system — the heart of this rework.
+   Every photograph is a `.media` with an optional duotone navy wash plus
+   film grain, so unrelated stock frames read as one art-directed set.
+--------------------------------------------------------------------------- */
+.media {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--navy-900);
+}
+.media > img,
+.media > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Navy wash: a deep vignette that grounds text and unifies the palette. */
+.media-wash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to top,
+      var(--wash-bottom) 0%,
+      color-mix(in oklch, var(--wash-bottom) 55%, transparent) 34%,
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--wash-top) 70%, transparent) 0%,
+      transparent 26%
+    );
+}
+
+/* Film grain over everything — the "magazine print" texture. */
+@media (prefers-reduced-motion: no-preference) {
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+  }
+}
+
+/* A subtle, unified colour grade on stock frames. */
+.media-grade {
+  filter: saturate(0.78) contrast(1.05) brightness(0.94);
+}
+
+/* Slow cinematic drift for hero media (plain <img>/<video> only). */
+@keyframes kenburns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .kenburns > img,
+  .kenburns > video {
+    animation: kenburns 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+
+/* A "contact sheet" plate — hairline card + tape shadow, tears away from
+   the flat kit look. Use on stills, never on full-bleed bands. */
+.photo-frame {
+  padding: 0.5rem 0.5rem 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 22px 44px -26px rgb(1 8 20 / 0.5);
+}
+
+/* Horizontal film strip — swipeable, snap-scrolling gallery band. */
+.film-scroll {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.25rem;
+}
+.film-scroll::-webkit-scrollbar {
+  display: none;
+}
+.film-item {
+  flex: 0 0 84%;
+  scroll-snap-align: start;
+}
+@media (min-width: 640px) {
+  .film-item {
+    flex-basis: 44%;
+  }
+}
+@media (min-width: 1024px) {
+  .film-item {
+    flex-basis: 30%;
+  }
+}
+
+/* Hero stage — the full-bleed opening frame. */
+.hero-stage {
+  min-height: 540px;
+  height: 82svh;
 }
 
 /* Brand navy surface with a faint blueprint grid (flips per theme). */
@@ -301,15 +513,7 @@
   }
 }
 
-/* Hero load sequence — emblem ring draws itself, then content rises in. */
-@keyframes keyway-draw {
-  from {
-    stroke-dashoffset: var(--dash, 520);
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
+/* Hero load sequence — content rises in behind a veil. */
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -323,12 +527,18 @@
 .hero-veil {
   animation: rise-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* Keyway emblem self-draw — kept for the emblem component's animated mode. */
+@keyframes keyway-draw {
+  from {
+    stroke-dashoffset: var(--dash, 520);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 .draw-ring {
   stroke-dasharray: var(--dash, 520);
   stroke-dashoffset: var(--dash, 520);
   animation: keyway-draw 1.6s 0.2s cubic-bezier(0.65, 0, 0.35, 1) both;
-}
-.spin-slow {
-  animation: spin 28s linear infinite;
-  transform-origin: center;
 }

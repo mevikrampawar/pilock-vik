@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ArrowRight, Menu } from 'lucide-react'
 
@@ -19,18 +19,38 @@ const nav = [
 ]
 
 /*
-  Header — sticky, glassy app bar with an editorial nav: quiet text links,
-  a gold hairline under the active page, theme toggle and a gold CTA.
-  Mobile: theme toggle + hamburger that opens a Sheet with full-width links.
+  Header — floats over the hero photograph (transparent, ivory type), then
+  condenses to a frosted midnight bar once the page scrolls. The active page
+  gets a gold slash; the CTA is a quiet hairline button rather than a UI-kit
+  pill. Mobile: theme toggle + menu into a Sheet.
 */
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
+    <header
+      className={cn(
+        'fixed inset-x-0 top-0 z-50 transition-colors duration-500',
+        scrolled
+          ? 'border-b border-ivory-50/10 bg-navy-900/85 backdrop-blur-xl'
+          : 'border-b border-transparent bg-transparent'
+      )}
+    >
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
-        <NavLink to="/" aria-label="PI Locks — home" className="shrink-0 py-2">
-          <Logo />
+        <NavLink
+          to="/"
+          aria-label="PI Locks — home"
+          className="shrink-0 py-2 [&_.text-muted-foreground]:text-ivory-50/70"
+        >
+          <Logo markClassName="[&_svg]:stroke-ivory-50/90" />
         </NavLink>
 
         <nav className="hidden items-stretch self-stretch lg:flex" aria-label="Primary">
@@ -40,41 +60,42 @@ export function Header() {
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  'relative flex items-center px-4 font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground',
-                  isActive && 'text-foreground'
+                  'relative flex items-center gap-2 px-4 font-display text-[15px] font-light tracking-wide text-ivory-50/75 transition-colors hover:text-ivory-50',
+                  isActive && 'text-ivory-50'
                 )
               }
             >
               {({ isActive }) => (
                 <>
-                  {item.label}
                   {isActive && (
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-4 bottom-0 h-[2px] bg-gold-500"
-                    />
+                    <span aria-hidden className="h-3 w-px bg-gold-400" />
                   )}
+                  {item.label}
                 </>
               )}
             </NavLink>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <ThemeToggle />
-          <div className="hidden lg:block">
-            <Button asChild data-icon="inline-end">
-              <NavLink to="/contact">
-                {site.cta.primary}
-                <ArrowRight data-icon="inline-end" />
-              </NavLink>
-            </Button>
-          </div>
+          <NavLink
+            to="/contact"
+            className="hidden items-center gap-2 border border-gold-400/50 px-3.5 py-1.5 font-display text-sm font-light italic text-gold-400 transition-colors hover:border-gold-400 hover:text-ivory-50 lg:inline-flex"
+          >
+            {site.cta.primary}
+            <ArrowRight className="size-3.5" />
+          </NavLink>
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="outline" size="icon" aria-label="Open menu">
-                <Menu />
+              <Button
+                variant="outline"
+                size="icon"
+                aria-label="Open menu"
+                className="border-ivory-50/30 bg-transparent text-ivory-50 hover:bg-ivory-50/10"
+              >
+                <Menu className="size-4" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[320px]">
@@ -87,7 +108,7 @@ export function Header() {
                     onClick={() => setOpen(false)}
                     className={({ isActive }) =>
                       cn(
-                        'display text-3xl rounded-md px-3 py-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
+                        'display text-3xl rounded-sm px-3 py-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
                         isActive && 'text-foreground'
                       )
                     }

@@ -121,18 +121,24 @@ export function ContactPage() {
         eyebrow="Contact"
         title="Get in touch"
         lede="Tell us about your building and its people. We’ll scope the right systems and price them honestly."
+        image="media/glass-angles.jpg"
+        note="Photography is licensed stock for review."
       />
 
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8" aria-label="Contact options">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           {/* Left rail — direct channels. */}
-          <Reveal className="flex flex-col gap-5">
-            {channels.map((channel) => (
+          <Reveal className="flex flex-col gap-7">
+            {channels.map((channel, i) => (
               <div
                 key={channel.label}
-                className="flex items-start gap-4 border border-border/60 bg-card p-6 transition-colors duration-300 hover:border-gold-500/40"
+                className={
+                  i > 0
+                    ? 'flex items-start gap-4 border-t border-border/60 pt-7'
+                    : 'flex items-start gap-4'
+                }
               >
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-gold-500/25 bg-gold-500/10">
+                <span className="flex size-10 shrink-0 items-center justify-center border border-gold-500/25 bg-gold-500/10">
                   <channel.icon className="size-4 text-gold-500" />
                 </span>
                 <div className="flex flex-col gap-1">
@@ -155,7 +161,7 @@ export function ContactPage() {
               </div>
             ))}
 
-            <p className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
+            <p className="spec border-t border-border/60 pt-6 text-muted-foreground">
               {site.responsePromise}
             </p>
           </Reveal>
@@ -164,7 +170,7 @@ export function ContactPage() {
           <Reveal delay={100}>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-7 rounded-2xl border border-border/70 bg-card p-7 sm:p-9"
+              className="flex flex-col gap-7 border border-border/70 bg-card p-7 sm:p-9"
               aria-label="Project inquiry form"
             >
               <div className="flex flex-col gap-2">

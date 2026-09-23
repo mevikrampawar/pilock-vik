@@ -1,11 +1,9 @@
 import { NavLink } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-
-import { KeywayEmblem } from '@/components/site/KeywayEmblem'
 import { Reveal } from '@/components/site/Reveal'
+import { FilmStrip } from '@/components/site/FilmStrip'
+import { Photo } from '@/components/site/Photo'
 import { SectionHeading } from '@/components/site/SectionHeading'
 import { PartnersStrip } from '@/components/site/PartnersStrip'
 import { StandardBand } from '@/components/site/StandardBand'
@@ -14,7 +12,8 @@ import { SectorsSection } from '@/components/site/SectorsSection'
 import { CalloutCTA } from '@/components/site/CalloutCTA'
 import { site } from '@/data/site'
 import { serviceGroups, allServices } from '@/data/services'
-import { partners, engagements, sectors } from '@/data/content'
+import { partners, sectors, engagements } from '@/data/content'
+import { media } from '@/data/media'
 
 // The client's service families, stated as they talk about them.
 const capabilities = [
@@ -27,63 +26,111 @@ const capabilities = [
 ]
 
 /* ---------------------------------------------------------------------------
-  Hero — the brand's opening statement. A serif line on the navy surface,
-  the keyway emblem drawing itself in gold, and the client's capability
-  families stated plainly. Quiet, confident, premium.
+  Hero — the opening frame. Full-bleed photography after dark, the brand
+  statement set over it in serif, and the capability families declared
+  plainly beneath. Ride, drift, descend.
 -------------------------------------------------------------------------- */
 function Hero() {
   return (
-    <section className="bg-brand relative overflow-hidden" aria-label="Introduction">
-      <div className="glow-brass absolute inset-0" />
-
-      <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-8 lg:px-8 lg:py-28">
-        <div className="flex flex-col items-start gap-8">
-          <p className="eyebrow hero-veil flex items-center gap-3">
-            <span aria-hidden className="inline-block h-px w-8 bg-gold-500" />
-            {site.category}
-          </p>
-
-          <h1 className="display hero-veil max-w-xl text-6xl text-balance sm:text-7xl lg:text-[5.5rem] [animation-delay:120ms]">
-            The standard behind every{' '}
-            <span className="display-accent">secure door.</span>
-          </h1>
-
-          <p className="hero-veil max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg [animation-delay:240ms]">
-            {site.positioning}
-          </p>
-
-          <div className="hero-veil flex flex-col gap-3 sm:flex-row [animation-delay:360ms]">
-            <Button asChild size="lg" data-icon="inline-end">
-              <NavLink to="/contact">
+    <section className="relative min-h-dvh" aria-label="Introduction">
+      <Photo
+        src={media.hero.src}
+        alt=""
+        kenburns
+        grain
+        className="hero-stage absolute inset-0"
+        aspect="auto"
+        eager
+      >
+        <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="spec hero-veil flex items-center gap-3 text-gold-400">
+              <span aria-hidden className="inline-block h-px w-8 bg-gold-400" />
+              {site.category}
+            </p>
+            <h1 className="display hero-veil mt-6 text-6xl text-ivory-50 text-balance sm:text-7xl lg:text-[5.5rem] [animation-delay:120ms]">
+              The standard behind every{' '}
+              <span className="display-accent text-gold-400">secure door.</span>
+            </h1>
+            <p className="hero-veil mt-6 max-w-xl text-base leading-relaxed text-ivory-50/80 sm:text-lg [animation-delay:240ms]">
+              {site.positioning}
+            </p>
+            <div className="hero-veil mt-8 flex flex-col gap-3 sm:flex-row sm:items-center [animation-delay:360ms]">
+              <NavLink
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-gold-500 px-5 py-3 text-sm font-medium text-navy-950 transition-colors hover:bg-gold-600"
+              >
                 {site.cta.primary}
-                <ArrowRight data-icon="inline-end" />
+                <ArrowRight className="size-4" />
               </NavLink>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <NavLink to="/services">{site.cta.secondary}</NavLink>
-            </Button>
+              <NavLink
+                to="/services"
+                className="link-arrow self-start sm:self-auto"
+              >
+                Explore Services
+                <ArrowDown className="size-4" />
+              </NavLink>
+            </div>
+
+            <ul className="hero-veil mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 [animation-delay:480ms]">
+              {capabilities.map((capability, i) => (
+                <li key={capability} className="flex items-center gap-6">
+                  <span className="font-display text-sm font-light italic text-ivory-50/75">
+                    {capability}
+                  </span>
+                  {i < capabilities.length - 1 && (
+                    <span aria-hidden className="inline-block h-3 w-px bg-ivory-50/25" />
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
-
-          {/* Capability strip — the systems this company installs end to end. */}
-          <ul className="hero-veil mt-2 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase [animation-delay:480ms]">
-            {capabilities.map((capability, i) => (
-              <li key={capability} className="flex items-center gap-5">
-                <span className={i === 0 ? 'text-gold-500' : undefined}>
-                  {capability}
-                </span>
-                {i < capabilities.length - 1 && (
-                  <span aria-hidden className="inline-block h-3 w-px bg-border" />
-                )}
-              </li>
-            ))}
-          </ul>
         </div>
+      </Photo>
 
-        {/* Signature emblem — slow glow, self-drawing gold ring. */}
-        <div className="relative mx-auto flex w-full max-w-lg items-center justify-center lg:max-w-none">
-          <div className="glow-brass absolute inset-0 m-auto aspect-square size-[115%]" />
-          <KeywayEmblem animated className="relative w-full max-w-[360px] lg:max-w-[440px]" />
-        </div>
+      {/* Scroll cue. */}
+      <div className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 lg:block">
+        <span className="block h-10 w-px animate-pulse bg-gold-400/60" aria-hidden />
+      </div>
+    </section>
+  )
+}
+
+/* ---------------------------------------------------------------------------
+  Contact sheet — the craft, in plates. Photographic proof of the trade:
+  readers, cameras, optics. Placeholder stock until owners' photography.
+-------------------------------------------------------------------------- */
+function ContactSheetSection() {
+  return (
+    <section className="py-20 sm:py-28" aria-label="The craft, up close">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <SectionHeading
+            eyebrow="The craft, up close"
+            title={
+              <>
+                Hardware you can <span className="display-accent">almost hear.</span>
+              </>
+            }
+            lede="Readers, cameras, and optics — the quiet objects this business lives among. Every one installed to a documented, finished standard."
+          />
+        </Reveal>
+
+        <Reveal delay={100} className="mt-14">
+          <FilmStrip
+            items={media.contactSheet.map((item) => ({
+              src: item.src,
+              alt: item.alt,
+              tag: item.tag,
+              caption: item.caption,
+            }))}
+          />
+        </Reveal>
+
+        <p className="spec mt-10 border-l border-gold-500/40 pl-4">
+          Placeholder photography for review — licensed stock, replaced by
+          owners&rsquo; project images as work completes.
+        </p>
       </div>
     </section>
   )
@@ -102,36 +149,34 @@ function AuditableBand() {
   ]
 
   return (
-    <section className="border-b border-border/60" aria-label="By the numbers">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid divide-y divide-border/60 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
+    <section className="border-y border-border/60 bg-secondary/40" aria-label="By the numbers">
+      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {figures.map((figure, i) => (
             <Reveal
               key={figure.label}
               delay={i * 80}
-              className="flex flex-col gap-2 py-8 pr-6 sm:py-10 lg:pl-8 lg:first:pl-0"
+              className="flex flex-col gap-1.5"
             >
               <span className="display text-5xl text-gold-500">
                 {String(figure.value).padStart(2, '0')}
                 {figure.unit}
               </span>
-              <span className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
+              <span className="max-w-40 text-sm leading-snug text-muted-foreground">
                 {figure.label}
               </span>
             </Reveal>
           ))}
         </div>
-        <p className="border-t border-border/60 py-4 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70 uppercase">
-          Counted from this site&rsquo;s live catalog — nothing invented.
-        </p>
+        <p className="spec mt-8">Counted from this site&rsquo;s live catalog — nothing invented.</p>
       </div>
     </section>
   )
 }
 
 /* ---------------------------------------------------------------------------
-  Services section (home) — the catalog as an editorial index: each family is
-  a numbered, ruled block with its disciplines listed beneath.
+  Services section (home) — each family is a photographic plate: a frame on
+  the left, the family's disciplines as a quiet letterpress list on the right.
 -------------------------------------------------------------------------- */
 function ServicesSection() {
   return (
@@ -150,57 +195,125 @@ function ServicesSection() {
           />
         </Reveal>
 
-        <div className="mt-16 flex flex-col">
-          {serviceGroups.map((group, groupIndex) => (
-            <Reveal
-              key={group.key}
-              as="section"
-              className={groupIndex > 0 ? 'border-t border-border/60 pt-14' : undefined}
-            >
-              <div className="grid gap-8 lg:grid-cols-[0.14fr_1.1fr_0.9fr] lg:gap-10">
-                <span className="display text-4xl text-gold-500/80">
-                  {group['S/N'].replace('S/N ', '')}
-                </span>
-                <div className="flex flex-col gap-3">
-                  <h3 className="display text-3xl">{group.name}</h3>
-                  <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-                    {group.blurb}
-                  </p>
+        <div className="mt-16 flex flex-col gap-20">
+          {serviceGroups.map((group, groupIndex) => {
+            const family = media.families[
+              group.key as keyof typeof media.families
+            ]
+            return (
+              <Reveal
+                key={group.key}
+                className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
+              >
+                {/* Photographic plate. */}
+                <div className={groupIndex % 2 === 1 ? 'lg:order-2' : undefined}>
+                  <NavLink to={`/services#${group.key}`} className="group block">
+                    <Photo
+                      src={family.src}
+                      alt={group.name}
+                      aspect="4 / 3"
+                      imgClassName="transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      className="photo-frame relative"
+                    >
+                      <span className="absolute right-3 top-3 z-10 flex size-10 items-center justify-center border border-ivory-50/30 bg-navy-900/40 backdrop-blur-sm">
+                        <ArrowUpRight className="size-4 text-gold-400" />
+                      </span>
+                    </Photo>
+                    <p className="spec mt-3 text-muted-foreground/80">{family.caption}</p>
+                  </NavLink>
                 </div>
 
-                <ul className="flex flex-col lg:mt-2">
-                  {group.services.map((service, i) => (
-                    <li
-                      key={service.slug}
-                      className={i > 0 ? 'border-t border-border/40' : undefined}
-                    >
-                      <NavLink
-                        to={`/services/${service.slug}`}
-                        className="group flex items-center justify-between gap-4 py-3.5 transition-colors"
+                {/* Letterpress list. */}
+                <div className={groupIndex % 2 === 1 ? 'lg:order-1' : undefined}>
+                  <div className="flex flex-col gap-4">
+                    <p className="display text-4xl text-gold-500/70">
+                      {group['S/N'].replace('S/N ', '')}
+                    </p>
+                    <h3 className="display text-4xl sm:text-5xl">{group.name}</h3>
+                    <p className="max-w-lg text-base leading-relaxed text-muted-foreground">
+                      {group.blurb}
+                    </p>
+                  </div>
+                  <ul className="mt-8 flex flex-col">
+                    {group.services.map((service, i) => (
+                      <li
+                        key={service.slug}
+                        className={i > 0 ? 'border-t border-border/60' : undefined}
                       >
-                        <span className="flex items-center gap-3">
-                          <span className="display text-xl text-balance">
-                            {service.shortName}
+                        <NavLink
+                          to={`/services/${service.slug}`}
+                          className="group flex items-center justify-between gap-4 py-4"
+                        >
+                          <span className="flex items-center gap-3">
+                            <span className="display text-xl text-balance group-hover:text-gold-500">
+                              {service.shortName}
+                            </span>
+                            {service.flagship && (
+                              <span className="spec border border-gold-500/40 px-1.5 py-0.5 text-gold-500">
+                                Flagship
+                              </span>
+                            )}
                           </span>
-                          {service.flagship && (
-                            <Badge className="w-fit font-mono text-[9px] tracking-[0.16em] uppercase">
-                              Flagship
-                            </Badge>
-                          )}
-                        </span>
-                        <span className="flex items-center gap-3">
-                          <span className="hidden text-sm text-muted-foreground sm:block">
-                            {service.tagline}
+                          <span className="flex items-center gap-3">
+                            <span className="hidden max-w-56 text-sm text-muted-foreground sm:block">
+                              {service.tagline}
+                            </span>
+                            <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-500" />
                           </span>
-                          <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:text-gold-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </span>
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ---------------------------------------------------------------------------
+  Craft film — a quiet cinematic clip: a hand, a key, a locking door.
+-------------------------------------------------------------------------- */
+function CraftFilm() {
+  return (
+    <section className="bg-brand relative overflow-hidden py-20 sm:py-28" aria-label="The standard on film">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <Reveal className="flex flex-col items-start gap-5">
+            <p className="eyebrow flex items-center gap-3 text-gold-500">
+              <span aria-hidden className="inline-block h-px w-8 bg-gold-500" />
+              On film
+            </p>
+            <h2 className="display max-w-lg text-4xl text-balance sm:text-5xl">
+              The last thing a client <span className="display-accent">touches.</span>
+            </h2>
+            <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+              Every handover ends with a door that opens exactly when it
+              should — and stays shut exactly when it must. That is the
+              standard, and it is the same for all eleven disciplines.
+            </p>
+            <NavLink to="/about" className="link-arrow">
+              Read the standard
+              <ArrowUpRight className="size-4" />
+            </NavLink>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <Photo
+              src={media.film.craft.src}
+              video
+              videoProps={{ poster: media.film.craft.poster }}
+              aspect="16 / 10"
+              className="photo-frame relative"
+            >
+              <p className="spec self-start px-4 pb-4 text-ivory-50/70">
+                {media.film.craft.caption}
+              </p>
+            </Photo>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -212,7 +325,7 @@ function ServicesSection() {
 -------------------------------------------------------------------------- */
 function EngagementsSection() {
   return (
-    <section className="border-y border-border/60 bg-secondary/40 py-20 sm:py-28" aria-label="Engagement types">
+    <section className="py-20 sm:py-28" aria-label="Engagement types">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <SectionHeading
@@ -238,7 +351,7 @@ function EngagementsSection() {
                   : 'flex flex-col gap-3 py-7 sm:flex-row sm:items-baseline sm:gap-8'
               }
             >
-              <span className="eyebrow w-28 shrink-0">
+              <span className="display text-lg text-gold-500/90">
                 MODE {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="display text-2xl sm:w-64 sm:shrink-0 sm:text-3xl">
@@ -259,9 +372,11 @@ export function HomePage() {
   return (
     <>
       <Hero />
+      <ContactSheetSection />
       <AuditableBand />
       <PartnersStrip />
       <ServicesSection />
+      <CraftFilm />
       <StandardBand />
       <JourneySection />
       <EngagementsSection />

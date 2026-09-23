@@ -1,19 +1,18 @@
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Check, Clock, FileCheck2, ShieldCheck } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-
 import { PageHeader } from '@/components/site/PageHeader'
+import { Photo } from '@/components/site/Photo'
 import { Reveal } from '@/components/site/Reveal'
 import { CalloutCTA } from '@/components/site/CalloutCTA'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { allServices } from '@/data/services'
+import { serviceMedia, media } from '@/data/media'
 import { site } from '@/data/site'
 
 /*
   ServiceDetailPage — the universal service template.
-  Hero → intro → integration examples → partner brands → CTA → related
+  Photo hero → intro → integration examples → partner brands → CTA → related
   services. All service pages share this layout, sourced from services data.
 */
 export function ServiceDetailPage() {
@@ -29,19 +28,23 @@ export function ServiceDetailPage() {
     .filter((s) => s.slug !== service.slug)
     .slice(0, 3)
 
+  const heroImage = serviceMedia[service.slug]
+
   return (
     <>
       <PageHeader
         eyebrow={service.flagship ? 'Flagship · Electronic Access' : 'Our Services'}
         title={service.name}
         lede={service.tagline}
+        image={heroImage}
+        note="Photography is licensed stock for review."
       />
 
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <nav aria-label="Breadcrumb" className="mb-10">
           <Link
             to="/services"
-            className="font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+            className="font-display text-sm font-light italic text-gold-500 transition-colors hover:text-foreground"
           >
             ← All services
           </Link>
@@ -51,7 +54,7 @@ export function ServiceDetailPage() {
           {/* Main column — intro + integrations. */}
           <div className="flex flex-col gap-14">
             <Reveal className="flex flex-col gap-4">
-              <p className="eyebrow flex items-center gap-3">
+              <p className="eyebrow flex items-center gap-3 text-gold-500">
                 <span aria-hidden className="inline-block h-px w-6 bg-gold-500" />
                 Overview
               </p>
@@ -107,7 +110,7 @@ export function ServiceDetailPage() {
           {/* Aside — partner brands + consult CTA. */}
           <aside className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
             <Reveal className="flex flex-col gap-6 border border-border/60 bg-card p-7">
-              <p className="eyebrow flex items-center gap-3">
+              <p className="eyebrow flex items-center gap-3 text-gold-500">
                 <span aria-hidden className="inline-block h-px w-6 bg-gold-500" />
                 Built on
               </p>
@@ -128,31 +131,37 @@ export function ServiceDetailPage() {
                   them — independent of any single manufacturer.
                 </p>
               )}
-              <Separator />
-              <p className="text-xs leading-relaxed text-muted-foreground">
+              <p className="spec border-t border-border/60 pt-5">
                 Selected OEM platforms prove the ecosystem — verified status
                 with each brand is confirmed per project.
               </p>
             </Reveal>
 
-            <Reveal delay={100} className="bg-brand relative flex flex-col gap-5 overflow-hidden border border-gold-500/25 p-7">
-              <div className="glow-brass pointer-events-none absolute inset-x-0 -top-12 h-40" />
-              <div className="relative flex flex-col gap-4">
-                <p className="eyebrow">Next step</p>
-                <h2 className="display text-2xl">
-                  Consult with <span className="display-accent">us.</span>
-                </h2>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Walk through your spaces with an integrator who owns the
-                  outcome. {site.responsePromise}
-                </p>
-                <Button asChild data-icon="inline-end">
-                  <NavLink to="/contact">
+            <Reveal delay={100}>
+              <Photo
+                src={media.standard.src}
+                alt=""
+                aspect="4 / 3"
+                className="relative"
+              >
+                <div className="flex flex-col gap-4 p-6">
+                  <p className="spec text-gold-400">Next step</p>
+                  <h2 className="display text-2xl text-ivory-50">
+                    Consult with <span className="display-accent text-gold-400">us.</span>
+                  </h2>
+                  <p className="text-sm leading-relaxed text-ivory-50/85">
+                    Walk through your spaces with an integrator who owns the
+                    outcome. {site.responsePromise}
+                  </p>
+                  <NavLink
+                    to="/contact"
+                    className="mt-2 inline-flex w-fit items-center justify-center gap-2 bg-gold-500 px-4 py-2.5 text-sm font-medium text-navy-950 transition-colors hover:bg-gold-600"
+                  >
                     Start your project
-                    <ArrowRight data-icon="inline-end" />
+                    <ArrowRight className="size-4" />
                   </NavLink>
-                </Button>
-              </div>
+                </div>
+              </Photo>
             </Reveal>
           </aside>
         </div>
@@ -165,7 +174,7 @@ export function ServiceDetailPage() {
             </h2>
             <Link
               to="/services"
-              className="font-mono text-xs tracking-[0.18em] text-gold-500 uppercase transition-colors hover:text-foreground"
+              className="font-display text-sm font-light italic text-gold-500 transition-colors hover:text-foreground"
             >
               All services
             </Link>
@@ -175,15 +184,25 @@ export function ServiceDetailPage() {
               <NavLink
                 key={s.slug}
                 to={`/services/${s.slug}`}
-                className="group flex items-start justify-between gap-4 border border-border/60 bg-card p-6 transition-colors duration-300 hover:border-gold-500/40"
+                className="group flex flex-col"
               >
-                <span className="flex flex-col gap-2">
-                  <span className="display text-xl">{s.shortName}</span>
-                  <span className="text-sm leading-relaxed text-muted-foreground">
-                    {s.tagline}
+                <Photo
+                  src={serviceMedia[s.slug] ?? media.families['security-access'].src}
+                  alt=""
+                  aspect="16 / 10"
+                  wash={false}
+                  grain={false}
+                  imgClassName="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
+                <span className="flex items-start justify-between gap-4 border-x border-b border-border/60 bg-card p-5">
+                  <span className="flex flex-col gap-1.5">
+                    <span className="display text-xl">{s.shortName}</span>
+                    <span className="text-sm leading-relaxed text-muted-foreground">
+                      {s.tagline}
+                    </span>
                   </span>
+                  <ArrowUpRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-500" />
                 </span>
-                <ArrowUpRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:text-gold-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </NavLink>
             ))}
           </div>

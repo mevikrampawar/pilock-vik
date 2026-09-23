@@ -1,53 +1,58 @@
 import { NavLink } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
-
-import { KeywayEmblem } from '@/components/site/KeywayEmblem'
+import { Photo } from '@/components/site/Photo'
 import { Reveal } from '@/components/site/Reveal'
 import { site } from '@/data/site'
+import { media } from '@/data/media'
 
 export function CalloutCTA() {
   return (
-    <section aria-label="Get started" className="bg-brand relative overflow-hidden">
-      <div className="glow-brass absolute inset-x-0 bottom-0 h-96" />
-      <KeywayEmblem className="pointer-events-none absolute -right-24 -top-24 size-96 opacity-30" />
-
-      <div className="relative mx-auto flex w-full max-w-7xl flex-col items-start gap-8 px-4 py-20 sm:px-6 sm:py-28 lg:items-center lg:px-8 lg:text-center">
-        <Reveal className="flex flex-col items-start gap-6 lg:items-center">
-          <p className="eyebrow flex items-center gap-3">
-            <span aria-hidden className="inline-block h-px w-8 bg-gold-500" />
-            {site.tagline}
-          </p>
-          <h2 className="display max-w-3xl text-5xl text-balance sm:text-6xl lg:text-7xl">
-            Start your <span className="display-accent">technology journey.</span>
-          </h2>
-          <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Tell us about your building and its people. We&rsquo;ll scope the
-            right systems, price them honestly, and deliver to the standard —
-            one partner, start to finish.
-          </p>
-        </Reveal>
-        <Reveal delay={120} className="flex flex-col gap-3 sm:flex-row">
-          <Button asChild size="lg" data-icon="inline-end">
-            <NavLink to="/contact">
-              {site.cta.primary}
-              <ArrowRight data-icon="inline-end" />
-            </NavLink>
-          </Button>
-          <Button asChild size="lg" variant="outline" data-icon="inline-end">
-            <NavLink to="/services">
-              Explore Services
-              <ArrowRight data-icon="inline-end" />
-            </NavLink>
-          </Button>
-        </Reveal>
-        <Reveal delay={200}>
-          <p className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
-            {site.responsePromise}
-          </p>
-        </Reveal>
-      </div>
+    <section role="region" aria-label="Get started" className="relative">
+      <Photo
+        src={media.film.corridor.src}
+        video
+        videoProps={{ poster: media.film.corridor.poster }}
+        grain
+        className="min-h-[560px] sm:min-h-[620px]"
+        aspect="auto"
+      >
+        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-20 lg:px-8">
+          <Reveal className="flex max-w-3xl flex-col items-start gap-6">
+            <p className="spec flex items-center gap-3 text-gold-400">
+              <span aria-hidden className="inline-block h-px w-8 bg-gold-400" />
+              {site.tagline}
+            </p>
+            <h2 className="display max-w-2xl text-5xl text-ivory-50 text-balance sm:text-6xl lg:text-7xl">
+              Start your <span className="display-accent text-gold-400">technology journey.</span>
+            </h2>
+            <p className="max-w-2xl text-base leading-relaxed text-ivory-50/85 sm:text-lg">
+              Tell us about your building and its people. We&rsquo;ll scope the
+              right systems, price them honestly, and deliver to the standard —
+              one partner, start to finish.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <NavLink
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-gold-500 px-5 py-3 text-sm font-medium text-navy-950 transition-colors hover:bg-gold-600"
+              >
+                {site.cta.primary}
+                <ArrowRight className="size-4" />
+              </NavLink>
+              <NavLink
+                to="/services"
+                className="link-arrow text-ivory-50"
+              >
+                Explore Services
+                <ArrowRight className="size-4" />
+              </NavLink>
+            </div>
+            <p className="spec text-ivory-50/55">
+              {site.responsePromise} · Footage is licensed stock.
+            </p>
+          </Reveal>
+        </div>
+      </Photo>
     </section>
   )
 }
