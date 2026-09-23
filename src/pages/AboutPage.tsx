@@ -88,13 +88,13 @@ export function AboutPage() {
 
           <Reveal delay={120}>
             <Photo
-              src={media.hero.src}
-              alt="A high-rise building facade at night"
+              src={media.standard.src}
+              alt="Systems installed to a premium standard"
               aspect="4 / 5"
               className="photo-frame relative"
             >
               <p className="spec self-start p-4 text-ivory-50/70">
-                The kind of building where the standard shows.
+                The kind of detail where the standard shows.
               </p>
             </Photo>
           </Reveal>
@@ -207,7 +207,7 @@ export function AboutPage() {
       </section>
 
       <CalloutCTA 
-        imageSrc="media/commercial-building.jpg" 
+        imageSrc="media/server-rack.jpg" 
         video={false}
         heading={
           <>
