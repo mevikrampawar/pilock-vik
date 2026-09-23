@@ -1,45 +1,11 @@
-import { useForm, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from 'sonner'
-import { z } from 'zod'
-import { ArrowRight, Globe, Mail, MapPin, PhoneCall } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field'
+import { Globe, Mail, MapPin, PhoneCall } from 'lucide-react'
 
 import { PageHeader } from '@/components/site/PageHeader'
 import { Reveal } from '@/components/site/Reveal'
 import { site } from '@/data/site'
 import { media } from '@/data/media'
 
-/*
-  Contact form schema — validated with zod, then composed into a
-  pre-filled mailto link. Static hosting (GitHub Pages) has no backend,
-  so the form hands off to the visitor's email app with everything
-  already written for them.
-*/
-const schema = z.object({
-  name: z.string().min(2, 'Please tell us your name.'),
-  company: z.string().optional(),
-  email: z.string().email('That email address doesn’t look right.'),
-  phone: z.string().optional(),
-  projectType: z.string().min(1, 'Choose a project type.'),
-  timeline: z.string().optional(),
-  message: z.string().min(10, 'A few more details helps us respond well.'),
-})
-
-type FormValues = z.infer<typeof schema>
-
-// Response channel cards on the left rail.
+// Response channel cards.
 const channels = [
   {
     label: 'Email',
@@ -66,211 +32,62 @@ const channels = [
   },
 ]
 
-const projectTypes = [
-  'General inquiry',
-  'Security & Access',
-  'Telecom & Low Voltage',
-  'Infrastructure & Design',
-  'Multiple / full-stack',
-]
-
-const timelines = [
-  'Just gathering information',
-  'Inside the next 3 months',
-  'Inside the next 6 months',
-  'This year',
-]
-
 /*
-  ContactPage — "Get in touch" with direct channels, a scoping form,
-  and the response promise. The form composes a mailto and confirms
-  via toast.
+  ContactPage — "Get in touch" with direct channels. We rely on standard
+  communication rather than scoping forms.
 */
 export function ContactPage() {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm<FormValues>({ resolver: zodResolver(schema) })
-
-  function onSubmit(values: FormValues) {
-    const subject = `Project inquiry — ${values.name} (${values.projectType})`
-    const body = [
-      `Name: ${values.name ?? '—'}`,
-      `Company: ${values.company || '—'}`,
-      `Email: ${values.email ?? '—'}`,
-      `Phone: ${values.phone || '—'}`,
-      `Project type: ${values.projectType ?? '—'}`,
-      `Timeline: ${values.timeline || '—'}`,
-      '',
-      'Message:',
-      values.message,
-    ].join('\n')
-
-    window.location.assign(
-      `mailto:${site.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    )
-    toast.success('Opening your email app — the message is pre-filled.')
-    reset()
-  }
-
   return (
     <>
       <PageHeader
         eyebrow="Contact"
         title="Get in touch"
-        lede="Tell us about your building and its people. We’ll scope the right systems and price them honestly."
+        lede="Reach out to discuss your building and its people. We’ll scope the right systems and price them honestly."
         image={media.contact.src}
       />
 
-      <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8" aria-label="Contact options">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* Left rail — direct channels. */}
-          <Reveal className="flex flex-col gap-7">
-            {channels.map((channel, i) => (
-              <div
-                key={channel.label}
-                className={
-                  i > 0
-                    ? 'flex items-start gap-4 border-t border-border/60 pt-7'
-                    : 'flex items-start gap-4'
-                }
-              >
-                <span className="flex size-10 shrink-0 items-center justify-center border border-gold-500/25 bg-gold-500/10">
-                  <channel.icon className="size-4 text-gold-500" />
+      <section className="mx-auto w-full max-w-5xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8" aria-label="Contact options">
+        <Reveal className="flex flex-col items-center text-center mb-16">
+          <h2 className="display text-3xl sm:text-4xl">Direct communication.</h2>
+          <p className="mt-4 max-w-2xl text-muted-foreground">
+            We prefer a direct conversation. Reach out via any of the channels below, and we will get back to you promptly to start planning your project.
+          </p>
+        </Reveal>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
+          {channels.map((channel, i) => (
+            <Reveal key={channel.label} delay={i * 50}>
+              <div className="flex flex-col items-start gap-5 border border-white/10 bg-card p-8 transition-colors hover:bg-secondary/40 h-full">
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-sm border border-gold-500/25 bg-gold-500/10">
+                  <channel.icon className="size-5 text-gold-500" />
                 </span>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1.5 mt-2">
                   <span className="eyebrow">{channel.label}</span>
                   {channel.href ? (
                     <a
                       href={channel.href}
                       target={channel.href.startsWith('http') ? '_blank' : undefined}
                       rel="noreferrer"
-                      className="font-mono text-sm text-foreground transition-colors hover:text-gold-500"
+                      className="font-mono text-base text-foreground transition-colors hover:text-gold-500"
                     >
                       {channel.value}
                     </a>
                   ) : (
-                    <span className="font-mono text-sm text-foreground">
+                    <span className="font-mono text-base text-foreground">
                       {channel.value}
                     </span>
                   )}
                 </div>
               </div>
-            ))}
-
-            <p className="spec border-t border-border/60 pt-6 text-muted-foreground">
-              {site.responsePromise}
-            </p>
-          </Reveal>
-
-          {/* Right rail — scoping form. */}
-          <Reveal delay={100}>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-7 border border-border/70 bg-card p-7 sm:p-9"
-              aria-label="Project inquiry form"
-            >
-              <div className="flex flex-col gap-2">
-                <h2 className="display text-3xl">Scope your project</h2>
-                <p className="text-sm text-muted-foreground">
-                  A few details now save a whole meeting — everything below is
-                  pre-filled into your email app.
-                </p>
-              </div>
-
-              <FieldGroup className="grid gap-x-6 sm:grid-cols-2 sm:[&>*:last-child]:col-span-2">
-                <Field>
-                  <FieldLabel htmlFor="name">Full name</FieldLabel>
-                  <Input id="name" placeholder="Jane Smith" aria-invalid={!!errors.name} data-invalid={!!errors.name} {...register('name')} />
-                  <FieldError errors={[errors.name]} />
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="company">Company</FieldLabel>
-                  <Input id="company" placeholder="Organization (optional)" {...register('company')} />
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="email">Work email</FieldLabel>
-                  <Input id="email" type="email" placeholder="jane@company.com" aria-invalid={!!errors.email} data-invalid={!!errors.email} {...register('email')} />
-                  <FieldError errors={[errors.email]} />
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="phone">Phone</FieldLabel>
-                  <Input id="phone" type="tel" placeholder="+1 (000) 000-0000" {...register('phone')} />
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="project-type">Project type</FieldLabel>
-                  <Controller
-                    name="projectType"
-                    control={control}
-                    render={({ field }) => (
-                      <Select onValueChange={field.onChange} value={field.value ?? ''}>
-                        <SelectTrigger id="project-type" aria-invalid={!!errors.projectType} data-invalid={!!errors.projectType} className="min-h-8">
-                          <SelectValue placeholder="Select a project type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {projectTypes.map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {type}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  />
-                  <FieldDescription>Not sure? Pick general inquiry.</FieldDescription>
-                  <FieldError errors={[errors.projectType]} />
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="timeline">Timeline</FieldLabel>
-                  <Controller
-                    name="timeline"
-                    control={control}
-                    render={({ field }) => (
-                      <Select onValueChange={field.onChange} value={field.value ?? ''}>
-                        <SelectTrigger id="timeline" className="min-h-8">
-                          <SelectValue placeholder="Select a timeline (optional)" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timelines.map((timeline) => (
-                            <SelectItem key={timeline} value={timeline}>
-                              {timeline}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  />
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="message">Your project</FieldLabel>
-                  <Textarea
-                    id="message"
-                    rows={5}
-                    placeholder="Spaces, systems, current pain points — anything that helps us scope well."
-                    aria-invalid={!!errors.message}
-                    data-invalid={!!errors.message}
-                    {...register('message')}
-                  />
-                  <FieldError errors={[errors.message]} />
-                </Field>
-              </FieldGroup>
-
-              <Button type="submit" size="lg" className="w-full sm:w-auto" data-icon="inline-end">
-                Let’s scope your project
-                <ArrowRight data-icon="inline-end" />
-              </Button>
-            </form>
-          </Reveal>
+            </Reveal>
+          ))}
         </div>
+
+        <Reveal delay={200} className="mt-16 text-center">
+          <p className="spec text-muted-foreground border-t border-white/10 pt-8 inline-block px-12">
+            {site.responsePromise}
+          </p>
+        </Reveal>
       </section>
     </>
   )
