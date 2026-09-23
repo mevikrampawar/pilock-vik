@@ -25,7 +25,6 @@ export function ServicesPage() {
         }
         lede={`${allServices.length} disciplines across three families — installed, programmed, commissioned, and documented to the same standard.`}
         image={media.families['security-access'].src}
-        note="Photography is licensed stock for review."
       />
 
       {/* Flagship callout — the offer the PI Locks name stands on. */}

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-import { KeywayEmblem } from '@/components/site/KeywayEmblem'
+import { asset } from '@/data/media'
 
 type LogoProps = {
   className?: string
@@ -9,15 +9,14 @@ type LogoProps = {
 
 export function Logo({ className, markClassName }: LogoProps) {
   return (
-    <span className={cn('flex items-center gap-3', className)}>
-      <KeywayEmblem className={cn('size-9 shrink-0', markClassName)} />
-      <span className="flex flex-col leading-none">
-        <span className="display text-xl whitespace-nowrap">
-          PI <span className="display-accent">Locks</span>
-        </span>
-        <span className="mt-1.5 font-mono text-[9px] tracking-[0.24em] text-muted-foreground uppercase whitespace-nowrap">
-          Access · Security · Comms
-        </span>
+    <span className={cn('flex flex-col items-center justify-center gap-1.5', className)}>
+      <img 
+        src={asset('media/logo.png')} 
+        alt="PI Locks Logo" 
+        className={cn('h-10 object-contain', markClassName)} 
+      />
+      <span className="font-sans text-[11px] font-bold tracking-[0.2em] text-gold-500 uppercase">
+        PI Locks
       </span>
     </span>
   )

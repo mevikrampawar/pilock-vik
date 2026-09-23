@@ -12,8 +12,8 @@ export const asset = (path: string) => import.meta.env.BASE_URL + path
 export const media = {
   /* Hero — the opening frame. */
   hero: {
-    src: 'media/building-night.jpg',
-    caption: 'A building after dark — where locking matters most. (Licensed stock)',
+    src: 'media/premium-hero.jpg',
+    caption: 'A building after dark — where locking matters most.',
   },
 
   /* Contact sheet — the craft stills. */
@@ -71,7 +71,7 @@ export const media = {
   /* The PI Standard — the proof anchor. */
   standard: {
     src: 'media/smart-cams.jpg',
-    caption: 'White cameras and smart devices, on dark. (Licensed stock)',
+    caption: 'White cameras and smart devices, on dark.',
   },
 
   /* Assorted page headers */

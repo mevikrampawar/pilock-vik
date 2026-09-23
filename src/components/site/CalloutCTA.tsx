@@ -66,7 +66,7 @@ export function CalloutCTA({
               </NavLink>
             </div>
             <p className="spec text-ivory-50/55">
-              {site.responsePromise} · Media is licensed stock.
+              {site.responsePromise}
             </p>
           </Reveal>
         </div>

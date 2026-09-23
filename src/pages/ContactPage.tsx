@@ -123,7 +123,6 @@ export function ContactPage() {
         title="Get in touch"
         lede="Tell us about your building and its people. We’ll scope the right systems and price them honestly."
         image={media.contact.src}
-        note="Photography is licensed stock for review."
       />
 
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8" aria-label="Contact options">

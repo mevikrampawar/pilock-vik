@@ -12,6 +12,8 @@ import { PrivacyPage } from '@/pages/PrivacyPage'
 import { TermsPage } from '@/pages/TermsPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 
+import { LoadingScreen } from '@/components/site/LoadingScreen'
+
 /*
   Route table — every page is a route under the shared Layout
   (header + page transition + footer). Unknown paths fall through
@@ -19,18 +21,21 @@ import { NotFoundPage } from '@/pages/NotFoundPage'
 */
 export default function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="services" element={<ServicesPage />} />
-        <Route path="services/:slug" element={<ServiceDetailPage />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="portfolio" element={<PortfolioPage />} />
-        <Route path="contact" element={<ContactPage />} />
-        <Route path="privacy" element={<PrivacyPage />} />
-        <Route path="terms" element={<TermsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+    <>
+      <LoadingScreen />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="services" element={<ServicesPage />} />
+          <Route path="services/:slug" element={<ServiceDetailPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="portfolio" element={<PortfolioPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="privacy" element={<PrivacyPage />} />
+          <Route path="terms" element={<TermsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </>
   )
 }

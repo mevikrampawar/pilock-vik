@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronRight, TriangleAlert } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 
 import { PageHeader } from '@/components/site/PageHeader'
 import { Photo } from '@/components/site/Photo'
@@ -33,7 +33,6 @@ export function PortfolioPage() {
         }
         lede="Every project raises the same question — what must this building's systems do, for the people inside it? The capability we deliver in each sector, stated plainly."
         image={media.sectors.commercial.src}
-        note="Sector photography is licensed stock for review."
       />
 
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
@@ -83,7 +82,7 @@ export function PortfolioPage() {
               className="photo-frame relative"
             >
               <p className="spec self-start p-4 text-ivory-50/70">
-                {sector.name} — {shot.alt}. (Licensed stock)
+                {sector.name} — {shot.alt}.
               </p>
             </Photo>
 
@@ -160,21 +159,6 @@ export function PortfolioPage() {
             </Reveal>
           </div>
         </div>
-
-        {/* Honest note — real photography lands as projects complete. */}
-        <Reveal className="mt-16 flex items-start gap-4 border border-border/60 bg-secondary/40 p-6 sm:p-8">
-          <TriangleAlert className="mt-0.5 size-5 shrink-0 text-gold-500" />
-          <div className="flex flex-col gap-2">
-            <p className="display text-xl">
-              Photography of completed projects is on its way.
-            </p>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              We&rsquo;re not inventing a portfolio — these sector plates are
-              licensed stock marks until owners&rsquo; project photography
-              lands. That choice keeps the first real case studies honest.
-            </p>
-          </div>
-        </Reveal>
       </div>
 
       <CalloutCTA 

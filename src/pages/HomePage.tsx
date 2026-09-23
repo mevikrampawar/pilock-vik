@@ -50,7 +50,7 @@ function Hero() {
               <span aria-hidden className="inline-block h-px w-8 bg-gold-400" />
               {site.category}
             </p>
-            <h1 className="display hero-veil mt-6 text-6xl text-ivory-50 text-balance sm:text-7xl lg:text-[5.5rem] [animation-delay:120ms]">
+            <h1 className="display hero-veil mt-6 text-5xl text-ivory-50 text-balance leading-[1.05] sm:text-7xl lg:text-[5.5rem] [animation-delay:120ms]">
               The standard behind every{' '}
               <span className="display-accent text-gold-400">secure door.</span>
             </h1>
@@ -128,11 +128,6 @@ function ContactSheetSection() {
             }))}
           />
         </Reveal>
-
-        <p className="spec mt-10 border-l border-gold-500/40 pl-4">
-          Placeholder photography for review — licensed stock, replaced by
-          owners&rsquo; project images as work completes.
-        </p>
       </div>
     </section>
   )
@@ -170,7 +165,6 @@ function AuditableBand() {
             </Reveal>
           ))}
         </div>
-        <p className="spec mt-8">Counted from this site&rsquo;s live catalog — nothing invented.</p>
       </div>
     </section>
   )

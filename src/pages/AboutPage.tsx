@@ -45,8 +45,7 @@ export function AboutPage() {
           </>
         }
         lede="A team of experienced integrators who took on the job of running every installation to a premium finish — and stuck to it."
-        image={media.film.craft.poster}
-        note="Photography is licensed stock for review."
+        image={media.contactSheet[1].src}
       />
 
       {/* Mission + founding story. */}
@@ -95,7 +94,7 @@ export function AboutPage() {
               className="photo-frame relative"
             >
               <p className="spec self-start p-4 text-ivory-50/70">
-                The kind of building where the standard shows. (Licensed stock)
+                The kind of building where the standard shows.
               </p>
             </Photo>
           </Reveal>

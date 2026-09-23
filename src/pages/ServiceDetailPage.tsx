@@ -44,7 +44,6 @@ export function ServiceDetailPage() {
         title={service.name}
         lede={service.tagline}
         image={heroImage}
-        note="Photography is licensed stock for review."
       />
 
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">

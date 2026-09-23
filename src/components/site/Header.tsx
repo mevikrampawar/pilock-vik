@@ -40,7 +40,7 @@ export function Header() {
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-500',
         scrolled
-          ? 'border-b border-white/10 bg-navy-950/75 backdrop-blur-2xl saturate-150 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.3)] py-1'
+          ? 'border-b border-white/10 bg-navy-950/95 backdrop-blur-3xl saturate-150 shadow-2xl py-1'
           : 'border-b border-transparent bg-transparent py-3'
       )}
     >
@@ -98,32 +98,34 @@ export function Header() {
                 <Menu className="size-4" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[320px]">
+            <SheetContent side="right" className="w-full border-l border-white/10 bg-navy-950 sm:w-[400px]">
               <SheetTitle className="sr-only">PI Locks navigation</SheetTitle>
-              <nav className="flex flex-col gap-1 pt-6" aria-label="Mobile">
-                {[{ label: 'Home', to: '/' }, ...nav].map((item) => (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    onClick={() => setOpen(false)}
-                    className={({ isActive }) =>
-                      cn(
-                        'display text-3xl rounded-sm px-3 py-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
-                        isActive && 'text-foreground'
-                      )
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
-              </nav>
-              <div className="mt-6 border-t pt-6">
-                <Button asChild className="w-full" data-icon="inline-end">
-                  <NavLink to="/contact" onClick={() => setOpen(false)}>
-                    {site.cta.primary}
-                    <ArrowRight data-icon="inline-end" />
-                  </NavLink>
-                </Button>
+              <div className="flex h-full flex-col">
+                <nav className="flex flex-1 flex-col justify-center gap-6 pt-12" aria-label="Mobile">
+                  {[{ label: 'Home', to: '/' }, ...nav].map((item) => (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      onClick={() => setOpen(false)}
+                      className={({ isActive }) =>
+                        cn(
+                          'display text-4xl px-6 transition-colors hover:text-gold-400',
+                          isActive ? 'text-gold-500' : 'text-ivory-50/80'
+                        )
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  ))}
+                </nav>
+                <div className="mt-6 border-t border-white/10 p-6">
+                  <Button asChild size="lg" className="w-full" data-icon="inline-end">
+                    <NavLink to="/contact" onClick={() => setOpen(false)}>
+                      {site.cta.primary}
+                      <ArrowRight data-icon="inline-end" />
+                    </NavLink>
+                  </Button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
