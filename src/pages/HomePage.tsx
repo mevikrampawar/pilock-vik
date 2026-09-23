@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { Reveal } from '@/components/site/Reveal'
@@ -18,14 +18,6 @@ import { partners, sectors, engagements } from '@/data/content'
 import { media } from '@/data/media'
 
 // The client's service families, stated as they talk about them.
-const capabilities = [
-  'Access Control',
-  'CCTV',
-  'Intercom & Entry',
-  'Voice / Data',
-  'Audio / Video',
-  'Automatic Doors',
-]
 
 /* ---------------------------------------------------------------------------
   Hero — the opening frame. Full-bleed photography after dark, the brand
@@ -34,65 +26,48 @@ const capabilities = [
 -------------------------------------------------------------------------- */
 function Hero() {
   return (
-    <section className="relative min-h-dvh" aria-label="Introduction">
+    <section className="relative h-svh w-full flex flex-col justify-end" aria-label="Introduction">
       <Photo
         src={media.hero.src}
         alt=""
         kenburns
         grain
-        className="hero-stage absolute inset-0"
+        className="absolute inset-0"
         aspect="auto"
         eager
-      >
-        <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-32 sm:pt-40 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="spec hero-veil flex items-center gap-3 text-gold-400">
-              <span aria-hidden className="inline-block h-px w-8 bg-gold-400" />
-              {site.category}
-            </p>
-            <h1 className="display hero-veil mt-6 text-[2.75rem] text-ivory-50 text-balance leading-[1.05] sm:text-6xl lg:text-[5.5rem] [animation-delay:120ms]">
-              The standard behind every{' '}
-              <span className="display-accent text-gold-400">secure door.</span>
-            </h1>
-            <p className="hero-veil mt-6 max-w-xl text-base leading-relaxed text-ivory-50/80 sm:text-lg [animation-delay:240ms]">
-              {site.positioning}
-            </p>
-            <div className="hero-veil mt-8 flex flex-col gap-3 sm:flex-row sm:items-center [animation-delay:360ms]">
-              <NavLink
-                to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-gold-500 px-5 py-3 text-sm font-medium text-navy-950 transition-colors hover:bg-gold-600"
-              >
-                {site.cta.primary}
-                <ArrowRight className="size-4" />
-              </NavLink>
-              <NavLink
-                to="/services"
-                className="link-arrow self-start sm:self-auto"
-              >
-                Explore Services
-                <ArrowDown className="size-4" />
-              </NavLink>
-            </div>
-
-            <ul className="hero-veil mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 [animation-delay:480ms]">
-              {capabilities.map((capability, i) => (
-                <li key={capability} className="flex items-center gap-6">
-                  <span className="font-display text-sm font-light italic text-ivory-50/75">
-                    {capability}
-                  </span>
-                  {i < capabilities.length - 1 && (
-                    <span aria-hidden className="inline-block h-3 w-px bg-ivory-50/25" />
-                  )}
-                </li>
-              ))}
-            </ul>
+      />
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-20 sm:pb-32 sm:px-6 lg:px-8">
+        <div className="max-w-3xl">
+          <h1 className="display hero-veil text-[2.75rem] text-ivory-50 text-balance leading-[1.05] sm:text-6xl lg:text-[5.5rem] [animation-delay:120ms]">
+            The standard behind every{' '}
+            <span className="display-accent text-gold-400">secure door.</span>
+          </h1>
+          <p className="hero-veil mt-6 max-w-xl text-base leading-relaxed text-ivory-50/80 sm:text-lg [animation-delay:240ms]">
+            {site.positioning}
+          </p>
+          <div className="hero-veil mt-10 flex flex-col gap-4 sm:flex-row sm:items-center [animation-delay:360ms]">
+            <NavLink
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-gold-500 px-6 py-4 text-[15px] font-medium text-navy-950 transition-colors hover:bg-gold-600 shadow-xl"
+            >
+              {site.cta.primary}
+              <ArrowRight className="size-4" />
+            </NavLink>
+            <NavLink
+              to="/services"
+              className="link-arrow self-start sm:self-auto ml-2 text-ivory-50 hover:text-gold-400"
+            >
+              Explore Services
+              <ArrowRight className="size-4" />
+            </NavLink>
           </div>
         </div>
-      </Photo>
+      </div>
 
       {/* Scroll cue. */}
-      <div className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 lg:block">
-        <span className="block h-10 w-px animate-pulse bg-gold-400/60" aria-hidden />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 [animation-delay:600ms] hero-veil">
+        <span className="font-mono text-[10px] tracking-widest text-ivory-50/50 uppercase">Scroll</span>
+        <span className="block h-12 w-px bg-gradient-to-b from-gold-400/60 to-transparent" aria-hidden />
       </div>
     </section>
   )
