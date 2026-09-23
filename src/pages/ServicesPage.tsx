@@ -111,7 +111,7 @@ export function ServicesPage() {
                               {service.name}
                             </h3>
                           </div>
-                          <p className="text-sm leading-relaxed text-muted-foreground">
+                          <p className="text-base leading-[1.8] text-muted-foreground">
                             {service.tagline}
                           </p>
                         </div>

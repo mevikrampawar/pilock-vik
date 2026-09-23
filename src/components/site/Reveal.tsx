@@ -1,5 +1,5 @@
-import { useEffect, useRef, type ReactNode } from 'react'
-
+import { type ReactNode } from 'react'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 type RevealProps = {
@@ -13,37 +13,23 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  as: Tag = 'div',
+  as = 'div',
 }: RevealProps) {
-  const ref = useRef<HTMLElement | null>(null)
-
-  useEffect(() => {
-    const node = ref.current
-    if (!node) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible')
-            observer.unobserve(entry.target)
-          }
-        }
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    )
-
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
+  const MotionTag = motion.create(as as any)
 
   return (
-    <Tag
-      ref={ref as never}
-      className={cn('reveal', className)}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    <MotionTag
+      className={cn('will-change-transform', className)}
+      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
+      transition={{
+        duration: 0.8,
+        ease: [0.21, 0.47, 0.32, 0.98],
+        delay: delay / 1000,
+      }}
     >
       {children}
-    </Tag>
+    </MotionTag>
   )
 }

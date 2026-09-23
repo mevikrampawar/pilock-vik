@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import { Reveal } from '@/components/site/Reveal'
 import { FilmStrip } from '@/components/site/FilmStrip'
@@ -174,6 +176,55 @@ function AuditableBand() {
   )
 }
 
+function ServiceItem({ service, isFirst }: { service: any; isFirst: boolean }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <li
+      className={isFirst ? undefined : 'border-t border-border/60'}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+    >
+      <NavLink
+        to={`/services/${service.slug}`}
+        className="group flex flex-col gap-2 py-5 sm:py-6"
+      >
+        <div className="flex items-center justify-between gap-4">
+          <span className="flex items-center gap-3">
+            <span className="display text-xl sm:text-2xl text-balance transition-colors group-hover:text-gold-500">
+              {service.shortName}
+            </span>
+            {service.flagship && (
+              <span className="spec border border-gold-500/40 px-1.5 py-0.5 text-gold-500">
+                Flagship
+              </span>
+            )}
+          </span>
+          <ArrowUpRight className="size-5 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-500" />
+        </div>
+        
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <span className="block pt-2 text-base leading-[1.8] text-muted-foreground sm:max-w-md">
+                {service.tagline}
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </NavLink>
+    </li>
+  )
+}
+
 /* ---------------------------------------------------------------------------
   Services section (home) — each family is a photographic plate: a frame on
   the left, the family's disciplines as a quiet letterpress list on the right.
@@ -236,32 +287,7 @@ function ServicesSection() {
                   </div>
                   <ul className="mt-8 flex flex-col">
                     {group.services.map((service, i) => (
-                      <li
-                        key={service.slug}
-                        className={i > 0 ? 'border-t border-border/60' : undefined}
-                      >
-                        <NavLink
-                          to={`/services/${service.slug}`}
-                          className="group flex items-center justify-between gap-4 py-4"
-                        >
-                          <span className="flex items-center gap-3">
-                            <span className="display text-xl text-balance group-hover:text-gold-500">
-                              {service.shortName}
-                            </span>
-                            {service.flagship && (
-                              <span className="spec border border-gold-500/40 px-1.5 py-0.5 text-gold-500">
-                                Flagship
-                              </span>
-                            )}
-                          </span>
-                          <span className="flex items-center gap-3">
-                            <span className="hidden max-w-56 text-sm text-muted-foreground sm:block">
-                              {service.tagline}
-                            </span>
-                            <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-500" />
-                          </span>
-                        </NavLink>
-                      </li>
+                      <ServiceItem key={service.slug} service={service} isFirst={i === 0} />
                     ))}
                   </ul>
                 </div>

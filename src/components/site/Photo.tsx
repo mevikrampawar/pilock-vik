@@ -1,32 +1,20 @@
-import type { ComponentProps, CSSProperties, ReactNode } from 'react'
-
+import { useRef, type ComponentProps, type CSSProperties, type ReactNode } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { asset } from '@/data/media'
-
-/*
-  Photo — one art-directed frame. Puts any image or video clip through
-  the brand's photographic treatment: navy wash, unified grade, film grain,
-  optional ken-burns drift. Markup stays in the page; this component owns
-  the treatment rules.
-*/
 
 type PhotoProps = {
   src: string
   alt?: string
   video?: boolean
-  /** Extra attrs for <video> (e.g. poster). */
   videoProps?: ComponentProps<'video'>
   aspect?: string
   className?: string
   imgClassName?: string
-  /** Content layered above the wash (captions, labels). */
   children?: ReactNode
-  /** Unify the colour palette across stock frames. */
   grade?: boolean
-  /** Slow cinematic drift (hero). */
   kenburns?: boolean
   grain?: boolean
-  /** Navy wash at the bottom for legible overlay text. */
   wash?: boolean
   eager?: boolean
   style?: CSSProperties
@@ -50,39 +38,61 @@ export function Photo({
   style,
   imgStyle,
 }: PhotoProps) {
+  const containerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  })
+
+  // Subtle scroll-linked parallax (scale down and slightly translate)
+  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15])
+  const y = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
+
   return (
     <figure
-      className={cn('media', grain && 'grain', kenburns && 'kenburns', className)}
+      ref={containerRef}
+      className={cn(
+        'media overflow-hidden relative aspect-square md:aspect-auto',
+        grain && 'grain',
+        kenburns && 'kenburns',
+        className
+      )}
       style={{ aspectRatio: aspect, ...style }}
     >
-      {video ? (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          tabIndex={-1}
-          className={cn(grade && 'media-grade', imgClassName)}
-          preload={eager ? 'auto' : 'metadata'}
-          {...videoProps}
-          poster={videoProps?.poster ? asset(videoProps.poster) : undefined}
-        >
-          <source src={asset(src)} type="video/mp4" />
-        </video>
-      ) : (
-        <img
-          src={asset(src)}
-          alt={alt}
-          loading={eager ? 'eager' : 'lazy'}
-          decoding="async"
-          className={cn(grade && 'media-grade', imgClassName)}
-          style={imgStyle}
-        />
-      )}
-      {wash && <i className="media-wash absolute inset-0 block" aria-hidden />}
+      <motion.div
+        className="absolute inset-0 size-full"
+        style={{ scale, y }}
+        transition={{ ease: 'linear' }}
+      >
+        {video ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            disablePictureInPicture
+            tabIndex={-1}
+            className={cn('size-full object-cover', grade && 'media-grade', imgClassName)}
+            preload={eager ? 'auto' : 'metadata'}
+            {...videoProps}
+            poster={videoProps?.poster ? asset(videoProps.poster) : undefined}
+          >
+            <source src={asset(src)} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={asset(src)}
+            alt={alt}
+            loading={eager ? 'eager' : 'lazy'}
+            decoding="async"
+            className={cn('size-full object-cover', grade && 'media-grade', imgClassName)}
+            style={imgStyle}
+          />
+        )}
+      </motion.div>
+      {wash && <i className="media-wash absolute inset-0 block pointer-events-none" aria-hidden />}
       {children && (
-        <figcaption className="relative z-10 flex h-full flex-col justify-end">
+        <figcaption className="relative z-10 flex h-full flex-col justify-end pointer-events-none">
           {children}
         </figcaption>
       )}
