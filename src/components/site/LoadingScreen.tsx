@@ -21,15 +21,15 @@ export function LoadingScreen() {
           exit={{ 
             opacity: 0, 
             scale: 2.5, 
-            filter: 'blur(10px)', 
+            filter: 'blur(5px)', 
             transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } 
           }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-950"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+            initial={{ opacity: 0, scale: 0.9, filter: 'blur(5px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, scale: 1.5, filter: 'blur(5px)' }}
+            exit={{ opacity: 0, scale: 1.5, filter: 'blur(3px)' }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <Logo className="scale-150" />

@@ -249,13 +249,13 @@
   /* Display headline — Fraunces, editorial, optical sizing. */
   .display {
     @apply font-display tracking-[-0.015em] leading-[1.02] font-medium text-balance;
-    text-shadow: 0 4px 32px rgb(0 0 0 / 0.5);
+    text-shadow: 0 4px 16px rgb(0 0 0 / 0.3);
   }
 
   /* Serif italic accent word inside a display line. */
   .display-accent {
     @apply font-display font-light italic text-gold-500;
-    text-shadow: 0 4px 32px color-mix(in oklch, var(--gold-500) 30%, transparent);
+    text-shadow: 0 2px 12px color-mix(in oklch, var(--gold-500) 20%, transparent);
   }
 
   /* Tiny mono caption — reserves, credits, honest notes. Used sparingly. */
@@ -378,7 +378,7 @@
     inset: 0;
     z-index: 2;
     pointer-events: none;
-    opacity: 0.055;
+    opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 140px 140px;
   }
@@ -392,16 +392,16 @@
 /* Slow cinematic drift for hero media (plain <img>/<video> only). */
 @keyframes kenburns {
   from {
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
   to {
-    transform: scale(1.12);
+    transform: scale(1.06);
   }
 }
 @media (prefers-reduced-motion: no-preference) {
   .kenburns > img,
   .kenburns > video {
-    animation: kenburns 28s ease-in-out infinite alternate;
+    animation: kenburns 35s ease-in-out infinite alternate;
     will-change: transform;
   }
 }
@@ -490,7 +490,7 @@
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  filter: blur(6px);
+  filter: blur(3px);
   transition:
     opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
@@ -508,7 +508,7 @@
   from {
     opacity: 0;
     transform: translateY(12px);
-    filter: blur(4px);
+    filter: blur(2px);
   }
   to {
     opacity: 1;
@@ -540,7 +540,7 @@
   from {
     opacity: 0;
     transform: translateY(20px);
-    filter: blur(8px);
+    filter: blur(4px);
   }
   to {
     opacity: 1;

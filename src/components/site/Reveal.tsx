@@ -20,7 +20,7 @@ export function Reveal({
   return (
     <MotionTag
       className={cn('will-change-transform', className)}
-      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+      initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
       transition={{
