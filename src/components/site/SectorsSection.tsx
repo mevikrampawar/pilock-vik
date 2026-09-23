@@ -47,6 +47,7 @@ export function SectorsSection() {
                     alt={shot.alt}
                     aspect="3 / 4"
                     imgClassName="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    className="border border-white/10 shadow-lg"
                   >
                     <div className="flex flex-col gap-2 p-5">
                       <div className="flex items-center justify-between">

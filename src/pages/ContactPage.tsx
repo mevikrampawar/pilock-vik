@@ -19,6 +19,7 @@ import {
 import { PageHeader } from '@/components/site/PageHeader'
 import { Reveal } from '@/components/site/Reveal'
 import { site } from '@/data/site'
+import { media } from '@/data/media'
 
 /*
   Contact form schema — validated with zod, then composed into a
@@ -121,7 +122,7 @@ export function ContactPage() {
         eyebrow="Contact"
         title="Get in touch"
         lede="Tell us about your building and its people. We’ll scope the right systems and price them honestly."
-        image="media/glass-angles.jpg"
+        image={media.contact.src}
         note="Photography is licensed stock for review."
       />
 

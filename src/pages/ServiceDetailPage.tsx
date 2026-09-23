@@ -6,7 +6,7 @@ import { Photo } from '@/components/site/Photo'
 import { Reveal } from '@/components/site/Reveal'
 import { CalloutCTA } from '@/components/site/CalloutCTA'
 import { NotFoundPage } from '@/pages/NotFoundPage'
-import { allServices } from '@/data/services'
+import { allServices, serviceGroups } from '@/data/services'
 import { serviceMedia, media } from '@/data/media'
 import { site } from '@/data/site'
 
@@ -23,9 +23,16 @@ export function ServiceDetailPage() {
     return <NotFoundPage />
   }
 
-  // Related services = siblings elsewhere in the catalog, excluding this one.
-  const related = allServices
+  const serviceGroup = serviceGroups.find(g => g.services.some(s => s.slug === service.slug))
+
+  // Related services = siblings from same family first, then fill with others.
+  const related = [...allServices]
     .filter((s) => s.slug !== service.slug)
+    .sort((a, b) => {
+      const aInGroup = serviceGroup?.services.some(s => s.slug === a.slug) ? 1 : 0
+      const bInGroup = serviceGroup?.services.some(s => s.slug === b.slug) ? 1 : 0
+      return bInGroup - aInGroup
+    })
     .slice(0, 3)
 
   const heroImage = serviceMedia[service.slug]
@@ -209,7 +216,15 @@ export function ServiceDetailPage() {
         </Reveal>
       </div>
 
-      <CalloutCTA />
+      <CalloutCTA 
+        imageSrc="media/cctv-tube.jpg" 
+        video={false}
+        heading={
+          <>
+            Bring this system <span className="display-accent text-gold-400">to your building.</span>
+          </>
+        }
+      />
     </>
   )
 }

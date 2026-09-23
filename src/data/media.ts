@@ -51,20 +51,20 @@ export const media = {
       caption: 'Electronic access — the flagship.',
     },
     'telecom-low-voltage': {
-      src: 'media/office-corridor.jpg',
+      src: 'media/server-rack.jpg',
       caption: 'The voice, sound, and alarm backbone.',
     },
     'infrastructure-design': {
-      src: 'media/glass-angles.jpg',
+      src: 'media/blueprint.jpg',
       caption: 'The structure the systems stand on.',
     },
   },
 
   /* Sectors — one frame each. */
   sectors: {
-    healthcare: { src: 'media/office-corridor.jpg', alt: 'A quiet institutional corridor' },
+    healthcare: { src: 'media/hospital-corridor.jpg', alt: 'A quiet institutional corridor' },
     education: { src: 'media/glass-low.jpg', alt: 'Low-angle view of a campus building' },
-    commercial: { src: 'media/glass-facade.jpg', alt: 'A glass office facade' },
+    commercial: { src: 'media/commercial-building.jpg', alt: 'A glass office facade' },
     residential: { src: 'media/apartment-doors.jpg', alt: 'Doors along a warm hallway' },
   },
 
@@ -72,6 +72,11 @@ export const media = {
   standard: {
     src: 'media/smart-cams.jpg',
     caption: 'White cameras and smart devices, on dark. (Licensed stock)',
+  },
+
+  /* Assorted page headers */
+  contact: {
+    src: 'media/glass-angles.jpg',
   },
 
   /* Video clips — muted, looping, ambient. */
@@ -91,14 +96,14 @@ export const media = {
 
 export const serviceMedia: Record<string, string> = {
   'electronic-access-control': 'media/access-reader.jpg',
-  'cctv-video-surveillance': 'media/dome-cam.jpg',
-  'door-intercom-entry': 'media/access-reader.jpg',
+  'cctv-video-surveillance': 'media/security-camera.jpg',
+  'door-intercom-entry': 'media/intercom.jpg',
   'door-hardware-locking': 'media/apartment-doors.jpg',
-  'automatic-door-operators': 'media/glass-low.jpg',
-  telephony: 'media/office-corridor.jpg',
+  'automatic-door-operators': 'media/glass-slider.jpg',
+  telephony: 'media/office-phone.jpg',
   'public-address-mass-notification': 'media/cam-lens.jpg',
-  'audio-video-systems': 'media/glass-facade.jpg',
-  nursecall: 'media/smart-cams.jpg',
-  'it-infrastructure': 'media/office-corridor.jpg',
-  'design-consulting': 'media/corridor-minimal.jpg',
+  'audio-video-systems': 'media/conference-room.jpg',
+  nursecall: 'media/hospital-bed.jpg',
+  'it-infrastructure': 'media/server-rack.jpg',
+  'design-consulting': 'media/blueprint.jpg',
 }

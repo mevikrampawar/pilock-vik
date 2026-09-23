@@ -57,7 +57,6 @@ export function Photo({
     >
       {video ? (
         <video
-          src={asset(src)}
           autoPlay
           muted
           loop
@@ -65,8 +64,12 @@ export function Photo({
           disablePictureInPicture
           tabIndex={-1}
           className={cn(grade && 'media-grade', imgClassName)}
+          preload={eager ? 'auto' : 'metadata'}
           {...videoProps}
-        />
+          poster={videoProps?.poster ? asset(videoProps.poster) : undefined}
+        >
+          <source src={asset(src)} type="video/mp4" />
+        </video>
       ) : (
         <img
           src={asset(src)}

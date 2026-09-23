@@ -177,7 +177,15 @@ export function PortfolioPage() {
         </Reveal>
       </div>
 
-      <CalloutCTA />
+      <CalloutCTA 
+        imageSrc="media/hospital-corridor.jpg" 
+        video={false}
+        heading={
+          <>
+            Let's build <span className="display-accent text-gold-400">the next one.</span>
+          </>
+        }
+      />
     </>
   )
 }

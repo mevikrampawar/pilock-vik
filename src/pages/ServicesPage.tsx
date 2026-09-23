@@ -104,7 +104,7 @@ export function ServicesPage() {
                           <ArrowUpRight className="size-4 text-gold-400" />
                         </span>
                       </Photo>
-                      <div className="flex flex-1 flex-col justify-between gap-3 border-x border-b border-border/60 bg-card p-6">
+                      <div className="flex flex-1 flex-col justify-between gap-3 border-x border-b border-border/60 bg-card p-6 transition-colors duration-500 group-hover:bg-secondary/80">
                         <div className="flex flex-col gap-2">
                           <div className="flex items-center justify-between gap-4">
                             <h3 className="display text-2xl sm:text-3xl">
@@ -150,7 +150,15 @@ export function ServicesPage() {
         </div>
       </section>
 
-      <CalloutCTA />
+      <CalloutCTA 
+        imageSrc="media/blueprint.jpg" 
+        video={false} 
+        heading={
+          <>
+            Ready to <span className="display-accent text-gold-400">get specific?</span>
+          </>
+        }
+      />
     </>
   )
 }

@@ -40,7 +40,7 @@ export function FilmStrip({
       {items.map((item, i) => (
         <figure
           key={`${item.src}-${i}`}
-          className={cn('film-item flex flex-col gap-3', containerClassName)}
+          className={cn('film-item group flex flex-col gap-3', containerClassName)}
         >
           <Photo
             src={item.src}

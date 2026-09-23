@@ -207,7 +207,15 @@ export function AboutPage() {
         </div>
       </section>
 
-      <CalloutCTA />
+      <CalloutCTA 
+        imageSrc="media/commercial-building.jpg" 
+        video={false}
+        heading={
+          <>
+            Hold your project to <span className="display-accent text-gold-400">the same standard.</span>
+          </>
+        }
+      />
     </>
   )
 }
